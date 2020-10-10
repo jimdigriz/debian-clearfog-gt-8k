@@ -16,7 +16,7 @@ MARVELL_BINARIES ?= $(CURDIR)/binaries-marvell
 JOBS ?= $(shell echo $$(($$(getconf _NPROCESSORS_ONLN) + 1))) 
 
 .PHONY: all
-all: rootfs.bin flash-image.bin
+all: rootfs.img
 
 flash-image.bin: $(UBOOT)/u-boot.bin
 
@@ -60,7 +60,7 @@ $(MARVELL_ATF)/build/a80x0_mcbin/release/flash-image.bin:
 flash-image.bin: $(MARVELL_ATF)/build/a80x0_mcbin/release/flash-image.bin
 	ln -f $< $@
 
-rootfs.bin: $(ROOTFS)/.stamp
+rootfs.img: $(ROOTFS)/.stamp
 
 $(ROOTFS)/.stamp: MIRROR ?= http://deb.debian.org/debian
 $(ROOTFS)/.stamp: RELEASE ?= $(shell . /etc/os-release && echo $$VERSION_CODENAME)
