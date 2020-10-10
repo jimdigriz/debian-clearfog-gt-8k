@@ -1,0 +1,8 @@
+dbus
+ethtool
+iproute2
+irqbalance
+netbase
+systemd-sysv
+usbutils
+watchdog
