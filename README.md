@@ -189,29 +189,9 @@ The eMMC image has now been burnt and if you restart the system, from u-boot you
     setenv bootargs earlyprintk panic=10 root=/dev/mmcblk0p1 rootdelay=10 ro
     bootefi $kernel_addr_r $fdt_addr_r
 
-...and now we get it crashing:
+The vanilla Debian kernel and initramfs should now boot and your rootfs mount.
 
-    [    4.591153] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    4.626166] ata1: SATA link down (SStatus 0 SControl 300)
-    [    4.631630] ata2: SATA link down (SStatus 0 SControl 300)
-    [    4.644720] libphy: mdio: probed
-    [    4.687095] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    4.744625] libphy: mdio: probed
-    [    4.787031] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    4.844603] libphy: mdio: probed
-    [    4.886777] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    4.944606] libphy: mdio: probed
-    [    4.986822] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    5.044598] libphy: mdio: probed
-    [    5.086693] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    5.147004] libphy: mdio: probed
-    [    5.188226] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    5.244596] libphy: mdio: probed
-    [    5.286695] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    5.344609] libphy: mdio: probed
-    [    5.386970] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
-    [    5.444588] libphy: mdio: probed
-    ...loops on switch detection before panic'ing...
+...TODO fix u-boot to boot automatically
 
 ### Usage
 
