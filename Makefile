@@ -100,7 +100,7 @@ rootfs/.stamp: packages | umount
 		echo '$(@D)' needs to be on a non-nodev mountpoint >&2; \
 		exit 1; \
 	}
-	@rm -rf "$(@D)"
+	@sudo rm -rf "$(@D)"
 	@mkdir -p "$(CACHE)"
 	sudo debootstrap \
 		--arch arm64 \
