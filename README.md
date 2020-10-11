@@ -142,7 +142,7 @@ You should now be able to ping across the link.
 
 Stop the TFTP server running in your other terminal and prepare `netcat` to do your file transfer:
 
-    cat emmc-image.bin | pv | nc -l -p 1234 -w 1
+    pv emmc-image.bin | nc -l -p 1234 -w 1
 
 From your unit now run:
 
