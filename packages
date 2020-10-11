@@ -1,5 +1,6 @@
 dbus
 ethtool
+f2fs-tools
 iproute2
 irqbalance
 netbase

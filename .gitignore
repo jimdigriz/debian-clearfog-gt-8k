@@ -1,10 +1,13 @@
 .*
 !.gitignore
 
+*.img
+*.bin
+
 cache
+rootfs
 
 u-boot
 atf-marvell
 mv-ddr-marvell
 binaries-marvell
-flash-image.bin

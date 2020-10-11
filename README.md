@@ -10,7 +10,8 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
  * [Build a Debian 'buster' 10 image for the Orange Pi Zero](https://gitlab.com/jimdigriz/debian-orangepi-zero)
  * SolidRun
-     * Armada 8040 U-Boot and ATF](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/)
+     * [ClearFog GT 8K - Product Overview](https://developer.solid-run.com/knowledge-base/clearfog-gt-8k-getting-started/)
+     * [Armada 8040 U-Boot and ATF](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/)
 
 # Pre-flight
 
@@ -31,9 +32,11 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
 # Build
 
-    make
+Build the root filesystem, downloads ~150MB plus roughly 10 mins, the project should emit a single file `rootfs.img`.
 
-After a while, downloading ~150MB plus roughly 10 mins, the project should emit a single file `rootfs.img`.
+    sudo make
+
+**N.B.** `sudo` is needed to create devices
 
 # Deploy
 
@@ -55,21 +58,9 @@ The problem is if you have an enclosure as:
 
 Fortunatey, after all this nonsense (bet those non-enclosure users are smugly smiling) you can run the ribbon cable through one of the open holes on the side of the unit (or the rear if you prefer).
 
-## rootfs
-
-### Usage
-
- * the root filesystem will [automatically grow to fill the SD card on first boot](https://copyninja.info/blog/grow_rootfs.html)
- * there is no password for the `root` user, so you can log in trivially with the serial console
- * though `systemd-timesyncd` should automatically handle this for you, if you are too quick typing `apt-get update` you may find you need to fix up the current date time with `date -s 2019-09-25`
- * networking is configured through [`systemd-networkd`](https://wiki.archlinux.org/index.php/Systemd-networkd)
-   * DHCP and IPv6 auto-configuration is setup for Ethernet
-
-This is a stock regular no-frills Debian installation, of significant note is that it does not have an SSH server and you will need to manually configured the wireless networking to match your needs.
-
 ## u-boot
 
-It is not necessary to do this stage but it is described for completeness.
+You do not need to update u-boot, but if you wish to, I have detailed how to do this for you.
 
 We use a slightly different approach that what is [outlined by SolidRun on their website](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/#from-u-boot):
 
@@ -87,15 +78,55 @@ We now upload the u-boot image via the serial port by running the following (it 
 
 **N.B.** I was not able to get the accelerated upload functionality working
 
-After the transfer you should see u-boot running and you can start pressing Ctrl-C to break out to the prompt.
+After the transfer you should see u-boot running and you should interrupt the boot sequence to break out to the prompt.
 
 We know now this image works, so it is time to burn it to the SPI flash by typing at the u-boot prompt:
 
-    loadx $kernel_addr_r
+    loadx $ramdisk_addr_r
 
-To start the XMODEM transfer use `Ctrl-A`+`S` to select `flash-image.bin`.
+Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin` from the project directory. Once complete you will be able to burn your new u-boot image to flash with:
 
     sf probe
-    # optionally erase, usually not needed
-    #sf erase 0 0x800000
-    sf write $kernel_addr_r 0 0x$filesize
+    sf erase 0 0x800000
+    sf write $ramdisk_addr_r 0 0x$filesize
+
+## rootfs
+
+### Network
+
+    sudo in.tftpd -L -v -s .
+
+http://wiki.macchiatobin.net/tiki-index.php?page=Use+network+in+U-Boot
+
+    make mmc-image.bin EMMC_SIZE_MB=1000
+
+    setenv ethact eth2
+    setenv ethprime eth2
+    setenv ipaddr 192.0.2.2
+    tftpboot $ramdisk_addr_r 192.0.2.1:/mmc-image.bin
+    mmc dev 0
+    mmc erase 0 0x$filesize
+    mmc write $ramdisk_addr_r 0 0x$filesize
+
+The `mmc {erase,write} ...` commands takes a *long* time and provides no feedback.
+
+### USB
+
+...copy to USB key
+
+uboot:
+
+    usb start
+    
+
+### Usage
+
+ * the root filesystem will [automatically grow to fill the SD card on first boot](https://copyninja.info/blog/grow_rootfs.html)
+ * there is no password for the `root` user, so you can log in trivially with the serial console
+ * though `systemd-timesyncd` should automatically handle this for you, if you are too quick typing `apt-get update` you may find you need to fix up the current date time with `date -s 2019-09-25`
+ * networking is configured through [`systemd-networkd`](https://wiki.archlinux.org/index.php/Systemd-networkd)
+   * DHCP and IPv6 auto-configuration is setup for Ethernet
+
+This is a stock regular no-frills Debian installation, of significant note is that it does not have an SSH server and you will need to manually configured the wireless networking to match your needs.
+
+
