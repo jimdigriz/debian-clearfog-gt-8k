@@ -60,7 +60,7 @@ The problem is if you have an enclosure as:
  * you order a [six way female IDC with jumper pins at the other end (POPESQ #A2559)](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)
  * ...the plug is still too tall
  * you take a scalpel to the IDC to remove some of the height, now the lid fits
- * ...only to find that one of the chassis screw mounts is immediately next to the serial post and now cannot fit into place as the IDC is also slightly too wide
+ * ...only to find that one of the chassis screw mounts is immediately next to the serial pins and now cannot fit into place as the IDC is slightly too wide and causes mis-alignment
  * you take the scalpel and shave off the clips on the side of the IDC, now everything fits
  * meanwhile the thermal paste that *was* on the SoC is mostly gone, so you order and wait for some [thermal pads (20mm width x 0.5mm thick](https://www.amazon.co.uk/gp/product/B07YWTQVFV) (or thermal paste) to be delivered as last time I needed any was ten (10) years ago
 
