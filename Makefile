@@ -59,7 +59,7 @@ DISTCLEAN += binaries-marvell
 
 atf-marvell/build/a80x0_mcbin/release/flash-image.bin: atf-marvell/.stamp mv-ddr-marvell/.stamp binaries-marvell/.stamp u-boot/u-boot.bin
 atf-marvell/build/a80x0_mcbin/release/flash-image.bin:
-	make -C atf-marvell -j$(JOBS) CROSS_COMPILE=aarch64-linux-gnu- USE_COHERENT_MEM=0 LOG_LEVEL=20 PLAT=a80x0_mcbin MV_DDR_PATH='$(CURDIR)/mv-ddr-marvell' SCP_BL2='$(CURDIR)/binaries-marvell/mrvl_scp_bl2.img' BL33='$(CURDIR)/u-boot/u-boot.bin' all fip
+	make -C atf-marvell -j$(JOBS) CROSS_COMPILE=aarch64-linux-gnu- PLAT=a80x0_mcbin MV_DDR_PATH='$(CURDIR)/mv-ddr-marvell' SCP_BL2='$(CURDIR)/binaries-marvell/mrvl_scp_bl2.img' BL33='$(CURDIR)/u-boot/u-boot.bin' all fip
 
 flash-image.bin: atf-marvell/build/a80x0_mcbin/release/flash-image.bin
 	ln -f $< $@
