@@ -40,7 +40,7 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
 # Build
 
-Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project should emit a single file `mmc-image.bin`.
+Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project should emit a single file `emmc-image.bin`.
 
     make
 
@@ -110,7 +110,7 @@ Instead we will upload via a NIC (at 7MiB/s) via u-boot over TFTP.
 
 Start by building the images:
 
-    make mmc-image.bin armada-8040-clearfog-gt-8k.dtb initramfs.cpio.gz
+    make emmc-image.bin initramfs.cpio.gz
 
 From another terminal and from the product directory run:
 
@@ -123,7 +123,7 @@ Hook up the network into one of the LAN ports and run from u-boot:
     setenv ipaddr 192.0.2.2
     tftpboot $kernel_addr_r 192.0.2.1:rootfs/vmlinuz
     tftpboot $ramdisk_addr_r 192.0.2.1:initramfs.cpio.gz
-    tftpboot $fdt_addr_r 192.0.2.1:armada-8040-clearfog-gt-8k.dtb
+    tftpboot $fdt_addr_r 192.0.2.1:rootfs/boot/marvell/armada-8040-clearfog-gt-8k.dtb
     fdt addr $fdt_addr_r
     fdt resize
     fdt chosen ${ramdisk_addr_r} 0x20000000
@@ -144,11 +144,73 @@ You should now be able to ping across the link.
 
 Stop the TFTP server running in your other terminal and prepare `netcat` to do your file transfer:
 
-    cat mmc-image.bin | pv | nc -l -p 1234 -w 0
+    cat emmc-image.bin | pv | nc -l -p 1234 -w 0
 
 From your unit now run:
 
     busybox nc 192.0.2.1 1234 | dd bs=1M of=/dev/mmcblk0
+
+The eMMC image has now been burnt and if you restart the system, from u-boot you should now see:
+
+    => mmc part
+    Partition Map for MMC device 0  --   Partition Type: EFI
+    
+    Part    Start LBA       End LBA         Name
+            Attributes
+            Type GUID
+            Partition GUID
+      1     0x00001000      0x00e127ff      "root"
+            attrs:  0x0000000000000000
+            type:   0fc63daf-8483-4772-8e79-3d69d8477de4
+            guid:   2bc44c3b-619e-3348-a6a2-586abadf7483
+      2     0x00e12800      0x00e8f7ff      "boot"
+            attrs:  0x0000000000000000
+            type:   0fc63daf-8483-4772-8e79-3d69d8477de4
+            guid:   fba41e57-1b69-094e-a651-9f5ecdc87b5d
+    
+    => ls mmc 0:2
+    <DIR>       1024 .
+    <DIR>       1024 ..
+    <DIR>      12288 lost+found
+                  83 System.map-5.8.0-0.bpo.2-arm64
+              245879 config-5.8.0-0.bpo.2-arm64
+            22159216 vmlinuz-5.8.0-0.bpo.2-arm64
+            27038539 initrd.img-5.8.0-0.bpo.2-arm64
+
+**N.B.** root filesystem partition is formatted with [F2FS](https://en.wikipedia.org/wiki/F2FS) and is not readable to u-boot
+
+    load mmc 0:2 $kernel_addr_r vmlinuz-5.8.0-0.bpo.2-arm64
+    load mmc 0:2 $ramdisk_addr_r initrd.img-5.8.0-0.bpo.2-arm64
+    load mmc 0:2 $fdt_addr_r marvell/armada-8040-clearfog-gt-8k.dtb
+    fdt addr $fdt_addr_r
+    fdt resize
+    fdt chosen ${ramdisk_addr_r} 0x20000000
+    setenv bootargs earlyprintk panic=10 ro
+    bootefi $kernel_addr_r $fdt_addr_r
+
+...and now we get it crashing:
+
+    [    4.591153] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    4.626166] ata1: SATA link down (SStatus 0 SControl 300)
+    [    4.631630] ata2: SATA link down (SStatus 0 SControl 300)
+    [    4.644720] libphy: mdio: probed
+    [    4.687095] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    4.744625] libphy: mdio: probed
+    [    4.787031] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    4.844603] libphy: mdio: probed
+    [    4.886777] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    4.944606] libphy: mdio: probed
+    [    4.986822] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    5.044598] libphy: mdio: probed
+    [    5.086693] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    5.147004] libphy: mdio: probed
+    [    5.188226] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    5.244596] libphy: mdio: probed
+    [    5.286695] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    5.344609] libphy: mdio: probed
+    [    5.386970] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+    [    5.444588] libphy: mdio: probed
+    ...loops on switch detection before panic'ing...
 
 ### Usage
 

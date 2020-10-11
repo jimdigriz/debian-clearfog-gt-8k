@@ -68,11 +68,11 @@ atf-marvell/build/a80x0_mcbin/release/flash-image.bin:
 flash-image.bin: atf-marvell/build/a80x0_mcbin/release/flash-image.bin
 	ln -f $< $@
 
-mmc-image.bin: gpt.img boot.img rootfs.img
+emmc-image.bin: gpt.img boot.img rootfs.img
 	cp --sparse=always $< $@
 	dd bs=1M conv=notrunc,sparse seek=$(F2FS_SEGMENT_SIZE_MB) if=rootfs.img of=$@
 	dd bs=1M conv=notrunc,sparse seek=$$(($(F2FS_SEGMENT_SIZE_MB) + $(ROOT_IMG_SIZE_MB))) if=boot.img of=$@
-CLEAN += mmc-image.img
+CLEAN += emmc-image.img
 
 gpt.img: boot.img
 	truncate -s $(EMMC_SIZE_MB)M $@
@@ -122,6 +122,8 @@ rootfs/.stamp: packages | umount
 		linux-image-arm64/$(RELEASE)-backports
 	sudo chroot $(@D) apt-get clean
 	sudo find $(@D)/var/lib/apt/lists -type f -delete
+	sudo chroot $(@D) mkdir /boot/marvell
+	sudo chroot $(@D) cp /usr/lib/$$(dpkg-query -W -f '$${Depends}' linux-image-arm64 | sed -e 's/ .*//')/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
 	echo clearfog | sudo tee $(@D)/etc/hostname >/dev/null
 	sudo chroot $(@D) passwd -d root
 	sudo chroot $(@D) systemctl enable serial-getty@ttyS0
@@ -131,10 +133,6 @@ rootfs/.stamp: packages | umount
 	@sudo touch $@
 CLEAN += rootfs
 DISTCLEAN += cache
-
-armada-8040-clearfog-gt-8k.dtb: rootfs/.stamp
-	ln -f -s $(dir $<)/usr/lib/$$(sudo chroot $(dir $<) dpkg-query -W -f '$${Depends}' linux-image-arm64 | sed -e 's/ .*//')/marvell/$@ $@
-CLEAN += armada-8040-clearfog-gt-8k.dtb
 
 .PHONY: umount
 umount:
