@@ -4,6 +4,7 @@ f2fs-tools
 iproute2
 irqbalance
 linux-image-arm64
+mmc-utils
 netbase
 systemd-sysv
 usbutils
