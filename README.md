@@ -189,7 +189,7 @@ The eMMC image has now been burnt and if you restart the system, from u-boot you
     setenv bootargs earlyprintk panic=10 root=/dev/mmcblk0p1 rootdelay=10 ro
     bootefi $kernel_addr_r $fdt_addr_r
 
-The vanilla Debian kernel and initramfs should now boot and your rootfs mount.
+The stock Debian kernel and initramfs should now boot and your rootfs mount.
 
 ...TODO fix u-boot to boot automatically
 
