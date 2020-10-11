@@ -4,7 +4,6 @@
 *.img
 *.bin
 initramfs.cpio.gz
-armada-8040-clearfog-gt-8k.dtb
 
 cache
 rootfs
