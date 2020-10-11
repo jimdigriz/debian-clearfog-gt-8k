@@ -15,6 +15,7 @@ EMMC_SIZE_MB ?= 7456
 
 # supports roughly four pairs of kernel/initramfs
 BOOT_IMG_SIZE_MB ?= 250
+# -1 as the alternative GPT table lives at the end of the device
 ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB) - 1)))
 
 .PHONY: all
@@ -76,7 +77,7 @@ CLEAN += emmc-image.img
 
 gpt.img: boot.img
 	truncate -s $(EMMC_SIZE_MB)M $@
-	printf 'label: gpt\nstart=4096,size=%d,name=root,bootable\nsize=%d,name=boot\n' \
+	printf 'label: gpt\nstart=4096,size=%d,name=root\nsize=%d,name=boot,bootable\n' \
 			$$(($(ROOT_IMG_SIZE_MB) * 1024 * 1024 / 512)) \
 			$$(($(BOOT_IMG_SIZE_MB) * 1024 * 1024 / 512)) \
 		| /sbin/sfdisk --no-reread --no-tell-kernel $@
@@ -122,8 +123,11 @@ rootfs/.stamp: packages | umount
 		linux-image-arm64/$(RELEASE)-backports
 	sudo chroot $(@D) apt-get clean
 	sudo find $(@D)/var/lib/apt/lists -type f -delete
-	sudo chroot $(@D) mkdir /boot/marvell
-	echo "cp /usr/lib/\$$(dpkg-query -W -f '\$${Depends}' linux-image-arm64 | sed -e 's/ .*//')/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell" | sudo chroot $(@D) /bin/sh
+	export VERSION=$$(sudo chroot $(@D) dpkg-query -W -f '$${Depends}' linux-image-arm64 | sed -e 's/linux-image-\([^ ]\+\).*/\1/') \
+		&& sudo chroot $(@D) ln -s vmlinuz-$$VERSION /boot/vmlinuz \
+		&& sudo chroot $(@D) ln -s initrd.img-$$VERSION /boot/initrd.img \
+		&& sudo chroot $(@D) mkdir /boot/marvell \
+		&& sudo chroot $(@D) ln /usr/lib/linux-image-$$VERSION/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
 	echo clearfog | sudo chroot $(@D) tee /etc/hostname >/dev/null
 	sudo chroot $(@D) passwd -d root
 	sudo chroot $(@D) systemctl enable serial-getty@ttyS0

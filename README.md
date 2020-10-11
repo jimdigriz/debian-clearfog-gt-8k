@@ -6,20 +6,18 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
  * `mmc write` explodes with `"Synchronous Abort" handler`
  * `usb start` with a USB3 key (todo, test USB2 works) explodes with `BUG at drivers/usb/host/xhci-ring.c abort_td()`
- * figure out why `ROOT_IMG_SIZE_MB` needs the `-1`
 
 ## Related Links
 
- * [Build a Debian 'buster' 10 image for the Orange Pi Zero](https://gitlab.com/jimdigriz/debian-orangepi-zero)
  * SolidRun
      * [ClearFog GT 8K - Product Overview](https://developer.solid-run.com/knowledge-base/clearfog-gt-8k-getting-started/)
      * [Armada 8040 U-Boot and ATF](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/)
      * [ARMADA A8040 Debian](https://developer.solid-run.com/knowledge-base/armada-8040-debian/)
-
-# Pre-flight
-
  * [`binfmt_misc`](https://en.wikipedia.org/wiki/Binfmt_misc) support on the host, and loaded (`modprobe binfmt_misc`)
  * [QEMU User Mode](https://ownyourbits.com/2018/06/13/transparently-running-binaries-from-any-architecture-in-linux-with-qemu-and-binfmt_misc/)
+ * [Build a Debian 'buster' 10 image for the Orange Pi Zero](https://gitlab.com/jimdigriz/debian-orangepi-zero)
+
+# Pre-flight
 
 ## Debian/Ubuntu
 
@@ -144,7 +142,7 @@ You should now be able to ping across the link.
 
 Stop the TFTP server running in your other terminal and prepare `netcat` to do your file transfer:
 
-    cat emmc-image.bin | pv | nc -l -p 1234 -w 0
+    cat emmc-image.bin | pv | nc -l -p 1234 -w 1
 
 From your unit now run:
 
