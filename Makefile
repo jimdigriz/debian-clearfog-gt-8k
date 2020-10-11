@@ -116,7 +116,8 @@ rootfs/.stamp: packages | umount
 		--variant=minbase \
 		$(RELEASE) $(@D) $(MIRROR)
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
-	printf "/dev/mmcblk0p1 / f2fs rw 0 1\n/dev/mmcblk0p2 /boot ext4 ro 0 2\n" | sudo chroot $(@D) tee /etc/fstab >/dev/null
+	printf "/dev/mmcblk0p1 / f2fs rw 0 1\n/dev/mmcblk0p2 /boot ext4 ro 0 2\n" \
+		| sudo chroot $(@D) tee /etc/fstab >/dev/null
 	echo deb $(MIRROR) $(RELEASE)-backports main \
 		| sudo chroot $(@D) tee /etc/apt/sources.list.d/debian-backports.list >/dev/null
 	sudo chroot $(@D) mkdir /etc/initramfs-tools
