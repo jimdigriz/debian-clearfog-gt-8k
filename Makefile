@@ -8,7 +8,7 @@ GIT_TRIM ?= --single-branch --no-tags --depth 1
 
 JOBS ?= $(shell echo $$(($$(getconf _NPROCESSORS_ONLN) + 1)))
 
-# partition table lives in here
+# partition table lives in the first chunk and we want the F2FS to be block aligned
 F2FS_SEGMENT_SIZE_MB = 2
 # u-boot cmd 'mmc write $ramdisk_addr_r 0x2000000 0x1000'
 EMMC_SIZE_MB ?= 7456
@@ -66,15 +66,15 @@ flash-image.bin: atf-marvell/build/a80x0_mcbin/release/flash-image.bin
 
 mmc-image.bin: gpt.img boot.img rootfs.img
 	cp --sparse=always $< $@
-	dd bs=1M conv=notrunc seek=$(F2FS_SEGMENT_SIZE_MB) if=boot.img of=$@
-	dd bs=1M conv=notrunc seek=$$(($(F2FS_SEGMENT_SIZE_MB) + $(BOOT_IMG_SIZE_MB))) if=rootfs.img of=$@
+	dd bs=1M conv=notrunc,sparse seek=$(F2FS_SEGMENT_SIZE_MB) if=rootfs.img of=$@
+	dd bs=1M conv=notrunc,sparse seek=$$(($(F2FS_SEGMENT_SIZE_MB) + $(ROOT_IMG_SIZE_MB))) if=boot.img of=$@
 CLEAN += mmc-image.img
 
 gpt.img: boot.img
 	truncate -s $(EMMC_SIZE_MB)M $@
-	printf 'label: gpt\nstart=2048,size=2048,name=gpt\nsize=%d,name=boot,bootable\nsize=%d,name=root\n' \
-			$$(($(BOOT_IMG_SIZE_MB) * 1024 * 1024 / 512)) \
+	printf 'label: gpt\nstart=4096,size=%d,name=root,bootable\nsize=%d,name=boot\n' \
 			$$(($(ROOT_IMG_SIZE_MB) * 1024 * 1024 / 512)) \
+			$$(($(BOOT_IMG_SIZE_MB) * 1024 * 1024 / 512)) \
 		| /sbin/sfdisk --no-reread --no-tell-kernel $@
 CLEAN += gpt.img
 
