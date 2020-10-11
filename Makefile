@@ -36,7 +36,6 @@ atf-marvell/.stamp: MARVELL_ATF_GIT ?= https://github.com/MarvellEmbeddedProcess
 atf-marvell/.stamp: MARVELL_ATF_REF ?= atf-v1.5-armada-18.12
 atf-marvell/.stamp:
 	git clone $(GIT_TRIM) -b $(MARVELL_ATF_REF) $(MARVELL_ATF_GIT) $(@D)
-	git -C $(@D) grep -l '\-Werror' | sed -e 's~^~$(@D)/~' | xargs -r sed -i -e 's/-Werror//g'
 	@touch $@
 DISTCLEAN += atf-marvell
 
@@ -44,6 +43,7 @@ mv-ddr-marvell/.stamp: MARVELL_DDR_GIT ?= https://github.com/MarvellEmbeddedProc
 mv-ddr-marvell/.stamp: MARVELL_DDR_REF ?= mv_ddr-armada-18.12
 mv-ddr-marvell/.stamp:
 	git clone $(GIT_TRIM) -b $(MARVELL_DDR_REF) $(MARVELL_DDR_GIT) $(@D)
+	git -C $(@D) grep -l '\-Werror' | sed -e 's~^~$(@D)/~' | xargs -r sed -i -e 's/ -Werror//g'
 	@touch $@
 DISTCLEAN += mv-ddr-marvell
 
