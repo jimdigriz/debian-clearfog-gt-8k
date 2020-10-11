@@ -116,7 +116,7 @@ DISTCLEAN += cache
 
 .PHONY: umount
 umount:
-	findmnt -n -R -o target -l --target rootfs | sed 1d | tac | xargs -r -n1 sudo umount || true
+	@findmnt -n -R -o target -l --target rootfs | sed 1d | tac | xargs -r -n1 sudo umount || true
 
 .PHONY: clean
 clean: umount
