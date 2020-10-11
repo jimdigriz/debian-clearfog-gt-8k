@@ -116,7 +116,7 @@ rootfs/.stamp: packages | umount
 		$(RELEASE) $(@D) $(MIRROR)
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
 	echo deb $(MIRROR) $(RELEASE)-backports main \
-		| sudo tee $(@D)/etc/apt/sources.list.d/debian-backports.list >/dev/null
+		| sudo chroot $(@D) tee /etc/apt/sources.list.d/debian-backports.list >/dev/null
 	sudo chroot $(@D) apt-get update
 	sudo chroot $(@D) apt-get -y --option=Dpkg::options::=--force-unsafe-io install --no-install-recommends \
 		linux-image-arm64/$(RELEASE)-backports
@@ -124,7 +124,7 @@ rootfs/.stamp: packages | umount
 	sudo find $(@D)/var/lib/apt/lists -type f -delete
 	sudo chroot $(@D) mkdir /boot/marvell
 	sudo chroot $(@D) cp /usr/lib/$$(dpkg-query -W -f '$${Depends}' linux-image-arm64 | sed -e 's/ .*//')/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
-	echo clearfog | sudo tee $(@D)/etc/hostname >/dev/null
+	echo clearfog | sudo chroot $(@D) tee /etc/hostname >/dev/null
 	sudo chroot $(@D) passwd -d root
 	sudo chroot $(@D) systemctl enable serial-getty@ttyS0
 	sudo chroot $(@D) systemctl enable systemd-networkd
