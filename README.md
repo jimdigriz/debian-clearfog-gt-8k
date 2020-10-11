@@ -31,6 +31,8 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
         git \
         lrzsz \
         minicom \
+        netcat-openbsd \
+        pv \
         qemu-user-static \
         tftpd-hpa
     sudo systemctl stop tftpd-hpa
@@ -130,7 +132,23 @@ Hook up the network into one of the LAN ports and run from u-boot:
 
 **N.B.** `fdt chosen` is setup to offer enough room for up to a 384MiB (`0x20000000 - ${ramdisk_addr_r}`) initramfs
 
-...
+You should see a login prompt after a while (username `root` with no password) and now should typ
+
+    ip link set dev eth2 up
+    ip link set dev lan4 up
+    ip addr add 192.0.2.2/24 dev lan4
+
+**N.B.** this assumes you are using 'LAN 1' and you should read the note on networking below if you are not
+
+You should now be able to ping across the link.
+
+Stop the TFTP server running in your other terminal and prepare `netcat` to do your file transfer:
+
+    cat mmc-image.bin | pv | nc -l -p 1234 -w 0
+
+From your unit now run:
+
+    busybox nc 192.0.2.1 1234 | dd bs=1M of=/dev/mmcblk0
 
 ### Usage
 
