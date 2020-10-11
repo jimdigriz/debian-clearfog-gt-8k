@@ -148,7 +148,8 @@ There are three network interfaces (`eth[0-2]`):
 
  * **`eth0`:** SFP port
  * **`eth1`:** WAN port
- * **`eth2`:** four LAN ports are actually with a switch and each is directly individually controllable from Linux
+ * **`eth2`:** connected to a switch that provides the four LAN ports
+     * each port is directly controllable from Linux
      * labelling seems to be reversed (ie. `lan1` is actually 'LAN 4' on the chassis)
 
 The output looks like:
