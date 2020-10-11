@@ -35,7 +35,7 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
 # Build
 
-Build the root filesystem, downloads ~150MB plus roughly 10 mins, the project should emit a single file `rootfs.img`.
+Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project should emit a single file `mmc-image.bin`.
 
     make
 
@@ -71,7 +71,7 @@ We use a slightly different approach that what is [outlined by SolidRun on their
  * this approach covers what you need to do even when your unit is bricked
  * no need to use `download-serial.sh` when u-boot already has `mrvl_uart.sh` which is easily to get working
 
-Start by building the firmware, downloading ~450MB plus roughly 10 mins:
+Start by building the firmware, downloading ~200MB plus roughly 5 mins:
 
     make flash-image.bin
 
