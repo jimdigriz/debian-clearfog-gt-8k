@@ -15,7 +15,7 @@ EMMC_SIZE_MB ?= 7456
 
 # supports roughly four pairs of kernel/initramfs
 BOOT_IMG_SIZE_MB ?= 250
-ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB))))
+ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB) - 1)))
 
 .PHONY: all
 all: mmc-image.bin
