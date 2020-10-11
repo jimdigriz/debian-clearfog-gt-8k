@@ -64,7 +64,7 @@ The problem is if you have an enclosure as:
  * you take a scalpel to the IDC port to remove some of the height, now the lid fits
  * ...only to find that one of the chassis screw mounts is immediately next to the serial post and now cannot fit into place as the IDC port is also slightly too wide
  * you take the scalpel and shave off the clips on the side of the IDC port, now everything fits
- * meanwhile the thermal paste that *was* on the SoC is mostly gone, so you order and wait for some [thermal pads](https://www.amazon.co.uk/gp/product/B07YWTQVFV) (or thermal paste) to be delivered as last time I needed any was ten (10) years ago
+ * meanwhile the thermal paste that *was* on the SoC is mostly gone, so you order and wait for some [thermal pads (20mm width x 0.5mm thick](https://www.amazon.co.uk/gp/product/B07YWTQVFV) (or thermal paste) to be delivered as last time I needed any was ten (10) years ago
 
 Fortunate, after all this nonsense (bet those non-enclosure users are smugly smiling) you can run the ribbon cable through one of the open holes on the side of the unit (or the rear if you prefer).
 
