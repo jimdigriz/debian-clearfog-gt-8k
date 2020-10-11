@@ -21,13 +21,9 @@ ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F
 all: gpt.img boot.img rootfs.img
 
 u-boot/.stamp: UBOOT_GIT ?= https://gitlab.denx.de/u-boot/u-boot.git
+u-boot/.stamp: UBOOT_REF ?= $(shell git ls-remote --tags $(UBOOT_GIT) | cut -f 2 | cut -d / -f 3 | sed -n -E -e '/^v[0-9]{4}\.[0-9]{2}$$/ p' | sort | tail -n1)
 u-boot/.stamp:
-ifneq ($(UBOOT_REF),)
 	git clone $(GIT_TRIM) -b $(UBOOT_REF) $(UBOOT_GIT) $(@D)
-else
-	git clone $(UBOOT_GIT) $(@D)
-	git -C $(@D) checkout $$(git -C $(@D) tag | sed -n -e '/^v/ { /-rc/! p }' | sort | tail -n1)
-endif
 	@touch $@
 DISTCLEAN += u-boot
 
