@@ -110,6 +110,8 @@ rootfs/.stamp: packages | umount
 		--variant=minbase \
 		$(RELEASE) $(@D) $(MIRROR)
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
+	sudo chroot $(@D) apt-get clean
+	sudo find $(@D)/var/lib/apt/lists -type f -delete
 	@sudo touch $@
 CLEAN += rootfs
 DISTCLEAN += cache
