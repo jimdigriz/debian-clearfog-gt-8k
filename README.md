@@ -48,17 +48,17 @@ You need access to the unit via the serial port which is fortunately straight fo
 
 The problem is if you have an enclosure as:
 
- * you cannot reassemble the enclosure with the serial cable plugged in with readily avaliable breadboard jumpers
+ * you cannot reassemble the enclosure with the serial cable plugged in as typical breadboard jumpers are too tall
  * you think this is okay
- * ...until you notice the SoC is *very* hot as the chassis is used as the heatsink and is no longer attached!
- * you order an [six (6) way female IDC with jumper pins at the other end](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)
- * ...the plug is still too high
+ * ...until you notice the SoC is *very* hot as the chassis is used as the heat sink and is no longer attached!
+ * you order a [six (6) way female IDC with jumper pins at the other end](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)
+ * ...the plug is still too tall
  * you take a scalpel to the IDC port to remove some of the height, now the lid fits
  * ...only to find that one of the chassis screw mounts is immediately next to the serial post and now cannot fit into place as the IDC port is also slightly too wide
  * you take the scalpel and shave off the clips on the side of the IDC port, now everything fits
  * meanwhile the thermal paste that *was* on the SoC is mostly gone, so you order and wait for some [thermal pads](https://www.amazon.co.uk/gp/product/B07YWTQVFV) (or thermal paste) to be delivered as last time I needed any was ten (10) years ago
 
-Fortunatey, after all this nonsense (bet those non-enclosure users are smugly smiling) you can run the ribbon cable through one of the open holes on the side of the unit (or the rear if you prefer).
+Fortunate, after all this nonsense (bet those non-enclosure users are smugly smiling) you can run the ribbon cable through one of the open holes on the side of the unit (or the rear if you prefer).
 
 ## u-boot
 
@@ -67,7 +67,7 @@ You do not need to update u-boot, but if you wish to, I have detailed how to do 
 We use a slightly different approach that what is [outlined by SolidRun on their website](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/#from-u-boot):
 
  * using a USB stick for a 1.5MB image seems excessive
- * this approach covers what you need to do even when oyur unit is bricked
+ * this approach covers what you need to do even when your unit is bricked
  * no need to use `download-serial.sh` when u-boot already has `mrvl_uart.sh` which is easily to get working
 
 Start by building the firmware, downloading ~450MB plus roughly 10 mins:
