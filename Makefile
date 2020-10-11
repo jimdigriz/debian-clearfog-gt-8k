@@ -119,6 +119,8 @@ rootfs/.stamp: packages | umount
 	printf "/dev/mmcblk0p1 / f2fs errors=remount-ro 0 1\nLABEL=/dev/mmcblk0p2 /boot ext4 ro 0 2\n" | sudo chroot $(@D) tee /etc/fstab >/dev/null
 	echo deb $(MIRROR) $(RELEASE)-backports main \
 		| sudo chroot $(@D) tee /etc/apt/sources.list.d/debian-backports.list >/dev/null
+	sudo chroot $(@D) mkdir /etc/initramfs-tools
+	cat modules | sudo chroot $(@D) tee -a /etc/initramfs-tools/modules >/dev/null
 	sudo chroot $(@D) apt-get update
 	sudo chroot $(@D) apt-get -y --option=Dpkg::options::=--force-unsafe-io install --no-install-recommends \
 		linux-image-arm64/$(RELEASE)-backports
