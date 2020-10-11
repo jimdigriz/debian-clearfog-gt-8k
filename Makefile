@@ -116,6 +116,8 @@ rootfs/.stamp: packages | umount
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
 	sudo chroot $(@D) apt-get clean
 	sudo find $(@D)/var/lib/apt/lists -type f -delete
+	sudo chroot $(@D) passwd -d root
+	sudo chroot $(@D) systemctl enable serial-getty@ttyS0
 	@sudo touch $@
 CLEAN += rootfs
 DISTCLEAN += cache
