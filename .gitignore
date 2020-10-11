@@ -3,6 +3,7 @@
 
 *.img
 *.bin
+initramfs.cpio.gz
 
 cache
 rootfs
