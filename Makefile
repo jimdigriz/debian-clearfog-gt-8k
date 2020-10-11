@@ -96,7 +96,7 @@ rootfs/.stamp: MIRROR ?= http://deb.debian.org/debian
 rootfs/.stamp: RELEASE ?= $(shell . /etc/os-release && echo $$VERSION_CODENAME)
 rootfs/.stamp: CACHE ?= $(CURDIR)/cache
 rootfs/.stamp: packages | umount
-	@findmnt -n -o options --target rootfs | grep -q -v nodev || { \
+	@findmnt -n -o options --target . | grep -q -v nodev || { \
 		echo '$(@D)' needs to be on a non-nodev mountpoint >&2; \
 		exit 1; \
 	}

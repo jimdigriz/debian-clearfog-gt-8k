@@ -106,7 +106,7 @@ http://wiki.macchiatobin.net/tiki-index.php?page=Use+network+in+U-Boot
     setenv ethact eth2
     setenv ethprime eth2
     setenv ipaddr 192.0.2.2
-    tftpboot $ramdisk_addr_r 192.0.2.1:/mmc-image.bin
+    tftpboot $ramdisk_addr_r 192.0.2.1:mmc-image.bin
     mmc dev 0
     mmc erase 0 0x$filesize
     mmc write $ramdisk_addr_r 0 0x$filesize
