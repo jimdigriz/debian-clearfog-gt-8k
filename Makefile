@@ -15,7 +15,7 @@ EMMC_SIZE_MB ?= 7456
 
 # supports roughly four pairs of kernel/initramfs
 BOOT_IMG_SIZE_MB ?= 250
-ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB) - 1)))
+ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB))))
 
 .PHONY: all
 all: mmc-image.bin
@@ -79,7 +79,8 @@ gpt.img: boot.img
 CLEAN += gpt.img
 
 boot.img: rootfs/.stamp
-	sudo /sbin/mkfs.ext4 -L boot -d rootfs/boot $@ $(BOOT_IMG_SIZE_MB)M
+	truncate -s $(BOOT_IMG_SIZE_MB)M $@
+	sudo /sbin/mkfs.ext4 -L boot -d rootfs/boot $@
 CLEAN += boot.img
 
 rootfs.img: rootfs/.stamp
