@@ -98,13 +98,28 @@ Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin`
 
 ## rootfs
 
+    make
+    make initramfs.cpio.gz
+
+    setenv ethact eth2
+    setenv ethprime eth2
+    setenv ipaddr 192.0.2.2
+    tftpboot $kernel_addr_r 192.0.2.1:rootfs/vmlinuz
+    tftpboot $ramdisk_addr_r 192.0.2.1:initramfs.cpio.gz
+    tftpboot $fdt_addr_r 192.0.2.1:u-boot/arch/arm/dts/armada-8040-clearfog-gt-8k.dtb
+    fdt addr $fdt_addr_r
+    fdt resize
+    fdt chosen ${ramdisk_addr_r} 0x20000000
+    setenv bootargs earlyprintk panic=10
+    bootefi $kernel_addr_r $fdt_addr_r
+
 ### Network
 
     sudo in.tftpd -L -v -s .
 
 http://wiki.macchiatobin.net/tiki-index.php?page=Use+network+in+U-Boot
 
-    make mmc-image.bin EMMC_SIZE_MB=1000
+    make mmc-image.bin
 
     setenv ethact eth2
     setenv ethprime eth2
