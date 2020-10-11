@@ -146,7 +146,7 @@ Stop the TFTP server running in your other terminal and prepare `netcat` to do y
 
 From your unit now run:
 
-    busybox nc 192.0.2.1 1234 | dd bs=1M of=/dev/mmcblk0
+    busybox nc 192.0.2.1 1234 | dd bs=1M of=/dev/mmcblk0 conv=fsync
 
 The eMMC image has now been burnt and if you restart the system, from u-boot you should now see:
 
