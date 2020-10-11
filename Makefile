@@ -87,7 +87,7 @@ rootfs.img: rootfs/.stamp
 	/sbin/mkfs.f2fs -l root $@
 	export MOUNTDIR=$$(mktemp -t -d) \
 		&& sudo mount -o loop $@ $$MOUNTDIR \
-		&& sudo tar cC rootfs --exclude='boot/*' . | sudo tar xC $$MOUNTDIR \
+		&& sudo tar cC rootfs --exclude=.stamp --exclude='boot/*' . | sudo tar xC $$MOUNTDIR \
 		&& sudo umount $$MOUNTDIR \
 		&& rmdir $$MOUNTDIR
 CLEAN += rootfs.img
@@ -110,7 +110,7 @@ rootfs/.stamp: packages | umount
 		--variant=minbase \
 		$(RELEASE) $(@D) $(MIRROR)
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
-	@touch $@
+	@sudo touch $@
 CLEAN += rootfs
 DISTCLEAN += cache
 
