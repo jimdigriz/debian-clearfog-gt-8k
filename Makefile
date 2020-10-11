@@ -123,7 +123,7 @@ rootfs/.stamp: packages | umount
 	sudo chroot $(@D) apt-get clean
 	sudo find $(@D)/var/lib/apt/lists -type f -delete
 	sudo chroot $(@D) mkdir /boot/marvell
-	sudo chroot $(@D) cp /usr/lib/$$(dpkg-query -W -f '$${Depends}' linux-image-arm64 | sed -e 's/ .*//')/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
+	echo "cp /usr/lib/\$$\$$(dpkg-query -W -f '\$$\$${Depends}' linux-image-arm64 | sed -e 's/ .*//')/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell" | sudo chroot $(@D) /bin/sh
 	echo clearfog | sudo chroot $(@D) tee /etc/hostname >/dev/null
 	sudo chroot $(@D) passwd -d root
 	sudo chroot $(@D) systemctl enable serial-getty@ttyS0
