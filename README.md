@@ -212,13 +212,12 @@ The eMMC image has now been burnt and if you restart the system, from u-boot you
 
 ### Usage
 
- * the root filesystem will [automatically grow to fill the SD card on first boot](https://copyninja.info/blog/grow_rootfs.html)
  * there is no password for the `root` user, so you can log in trivially with the serial console
  * though `systemd-timesyncd` should automatically handle this for you, if you are too quick typing `apt-get update` you may find you need to fix up the current date time with `date -s 2019-09-25`
  * networking is configured through [`systemd-networkd`](https://wiki.archlinux.org/index.php/Systemd-networkd)
    * DHCP and IPv6 auto-configuration is setup for Ethernet
 
-This is a stock regular no-frills Debian installation, of significant note is that it does not have an SSH server and you will need to manually configured the wireless networking to match your needs.
+This is a stock regular no-frills Debian installation, of significant note is that it does not have an SSH server and you will need to manually configured the networking to match your needs.
 
 #### Network
 
