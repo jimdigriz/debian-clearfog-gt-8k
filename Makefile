@@ -21,7 +21,7 @@ ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F
 all: mmc-image.bin
 
 initramfs.cpio.gz: rootfs/.stamp
-	{ cd $(dir $<) && sudo find . | sudo cpio --quiet -H newc -o; } | gzip -1 -n -c > $@
+	{ cd $(dir $<) && sudo find . ! -path './boot/*' | sudo cpio --quiet -H newc -o; } | gzip -1 -n -c > $@
 
 u-boot/.stamp: UBOOT_GIT ?= https://gitlab.denx.de/u-boot/u-boot.git
 u-boot/.stamp: UBOOT_REF ?= $(shell git ls-remote --tags $(UBOOT_GIT) | cut -f 2 | cut -d / -f 3 | sed -n -E -e '/^v[0-9]{4}\.[0-9]{2}$$/ p' | sort | tail -n1)
