@@ -18,10 +18,11 @@ BOOT_IMG_SIZE_MB ?= 250
 ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB) - 1)))
 
 .PHONY: all
-all: mmc-image.bin
+all:
 
 initramfs.cpio.gz: rootfs/.stamp
 	{ cd $(dir $<) && sudo find . ! -path './boot/*' | sudo cpio --quiet -H newc -o; } | gzip -1 -n -c > $@
+CLEAN += initramfs.cpio.gz
 
 u-boot/.stamp: UBOOT_GIT ?= https://gitlab.denx.de/u-boot/u-boot.git
 u-boot/.stamp: UBOOT_REF ?= $(shell git ls-remote --tags $(UBOOT_GIT) | cut -f 2 | cut -d / -f 3 | sed -n -E -e '/^v[0-9]{4}\.[0-9]{2}$$/ p' | sort | tail -n1)
@@ -114,13 +115,26 @@ rootfs/.stamp: packages | umount
 		--variant=minbase \
 		$(RELEASE) $(@D) $(MIRROR)
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
+	echo deb $(MIRROR) $(RELEASE)-backports main \
+		| sudo tee $(@D)/etc/apt/sources.list.d/debian-backports.list >/dev/null
+	sudo chroot $(@D) apt-get update
+	sudo chroot $(@D) apt-get -y --option=Dpkg::options::=--force-unsafe-io install --no-install-recommends \
+		linux-image-arm64/$(RELEASE)-backports
 	sudo chroot $(@D) apt-get clean
 	sudo find $(@D)/var/lib/apt/lists -type f -delete
+	echo clearfog | sudo tee $(@D)/etc/hostname >/dev/null
 	sudo chroot $(@D) passwd -d root
 	sudo chroot $(@D) systemctl enable serial-getty@ttyS0
+	sudo chroot $(@D) systemctl enable systemd-networkd
+	sudo chroot $(@D) systemctl enable systemd-resolved
+	sudo sed -ie 's/^#\(watchdog-device\)/\1/' $(@D)/etc/watchdog.conf
 	@sudo touch $@
 CLEAN += rootfs
 DISTCLEAN += cache
+
+armada-8040-clearfog-gt-8k.dtb: rootfs/.stamp
+	ln -f -s $(dir $<)/usr/lib/$$(sudo chroot $(dir $<) dpkg-query -W -f '$${Depends}' linux-image-arm64 | sed -e 's/ .*//')/marvell/$@ $@
+CLEAN += armada-8040-clearfog-gt-8k.dtb
 
 .PHONY: umount
 umount:

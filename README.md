@@ -34,7 +34,10 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
         git \
         lrzsz \
         minicom \
-        qemu-user-static
+        qemu-user-static \
+        tftpd-hpa
+    sudo systemctl stop tftpd-hpa
+    sudo systemctl disable tftpd-hpa
 
 # Build
 
@@ -43,6 +46,8 @@ Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project sh
     make
 
 **N.B.** you will be prompted to `sudo` up as parts of the build need to create devices, create mountpoints and read root owned files in the chroot
+
+**N.B.** the [kernel used is from Debian backports](https://packages.debian.org/buster-backports/linux-image-arm64) as [stable does not have](https://packages.debian.org/buster/linux-image-arm64) the [necessary fixes in it yet](https://developer.solid-run.com/knowledge-base/armada-8040-debian/#pure-debian-upstream)
 
 # Deploy
 
@@ -98,47 +103,37 @@ Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin`
 
 ## rootfs
 
-    make
-    make initramfs.cpio.gz
+As the eMMC image is 7.3GiB (yeah, part of the 8GB) we do not want to be uploading this over the serial port. This would not work either as the whole image would need to fit uncompressed within the 4GiB RAM that is available to the unit which is not going to happen. The final nail in the coffin is that `mmc write` from u-boot goes at ~32kiB/sec so really do not bother trying.
+
+You could use USB but for me u-boot (v2020.10) crashes and reboots with the USB key I have.
+
+Instead we will upload via a NIC (at 7MiB/s) via u-boot over TFTP.
+
+Start by building the images:
+
+    make mmc-image.bin armada-8040-clearfog-gt-8k.dtb initramfs.cpio.gz
+
+From another terminal and from the product directory run:
+
+    sudo in.tftpd -L -v -s .
+
+Hook up the network into one of the LAN ports and run from u-boot:
 
     setenv ethact eth2
     setenv ethprime eth2
     setenv ipaddr 192.0.2.2
     tftpboot $kernel_addr_r 192.0.2.1:rootfs/vmlinuz
     tftpboot $ramdisk_addr_r 192.0.2.1:initramfs.cpio.gz
-    tftpboot $fdt_addr_r 192.0.2.1:u-boot/arch/arm/dts/armada-8040-clearfog-gt-8k.dtb
+    tftpboot $fdt_addr_r 192.0.2.1:armada-8040-clearfog-gt-8k.dtb
     fdt addr $fdt_addr_r
     fdt resize
     fdt chosen ${ramdisk_addr_r} 0x20000000
     setenv bootargs earlyprintk panic=10 root=/dev/ram0 rw rdinit=/sbin/init
     bootefi $kernel_addr_r $fdt_addr_r
 
-### Network
+**N.B.** `fdt chosen` is setup to offer enough room for up to a 384MiB (`0x20000000 - ${ramdisk_addr_r}`) initramfs
 
-    sudo in.tftpd -L -v -s .
-
-http://wiki.macchiatobin.net/tiki-index.php?page=Use+network+in+U-Boot
-
-    make mmc-image.bin
-
-    setenv ethact eth2
-    setenv ethprime eth2
-    setenv ipaddr 192.0.2.2
-    tftpboot $ramdisk_addr_r 192.0.2.1:mmc-image.bin
-    mmc dev 0
-    mmc erase 0 0x$filesize
-    mmc write $ramdisk_addr_r 0 0x$filesize
-
-The `mmc {erase,write} ...` commands takes a *long* time and provides no feedback.
-
-### USB
-
-...copy to USB key
-
-uboot:
-
-    usb start
-    
+...
 
 ### Usage
 
@@ -150,3 +145,44 @@ uboot:
 
 This is a stock regular no-frills Debian installation, of significant note is that it does not have an SSH server and you will need to manually configured the wireless networking to match your needs.
 
+#### Network
+
+There are three network interfaces (`eth[0-2]`):
+
+ * **`eth0`:** SFP port
+ * **`eth1`:** WAN port
+ * **`eth2`:** four LAN ports are actually with a switch and each is directly individually controllable from Linux
+     * labelling seems to be reversed (ie. `lan1` is actually 'LAN 4' on the chassis)
+
+The output looks like:
+
+    root@clearfog:~# ip addr
+    1: lo: <LOOPBACK,UP,LOWER_UP> mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+        link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00
+        inet 127.0.0.1/8 scope host lo
+           valid_lft forever preferred_lft forever
+        inet6 ::1/128 scope host
+           valid_lft forever preferred_lft forever
+    2: eth0: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 2048
+        link/ether b2:3b:6c:b3:ee:d2 brd ff:ff:ff:ff:ff:ff
+    3: eth1: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 2048
+        link/ether 52:90:26:7a:e8:6c brd ff:ff:ff:ff:ff:ff
+    4: eth2: <BROADCAST,MULTICAST> mtu 1508 qdisc noop state DOWN group default qlen 2048
+        link/ether 02:a2:20:59:69:2d brd ff:ff:ff:ff:ff:ff
+    5: lan2@eth2: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+        link/ether 02:a2:20:59:69:2d brd ff:ff:ff:ff:ff:ff
+    6: lan1@eth2: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+        link/ether 02:a2:20:59:69:2d brd ff:ff:ff:ff:ff:ff
+    7: lan4@eth2: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+        link/ether 02:a2:20:59:69:2d brd ff:ff:ff:ff:ff:ff
+    8: lan3@eth2: <BROADCAST,MULTICAST,M-DOWN> mtu 1500 qdisc noop state DOWN group default qlen 1000
+        link/ether 02:a2:20:59:69:2d brd ff:ff:ff:ff:ff:ff
+
+To bring up the `lanX` ports you first need to bring up it's 'parent' interface `eth2`:
+
+    root@clearfog:~# ip link set dev eth2 up
+
+Now you can configure the `lanX` ports as usual:
+
+    root@clearfog:~# ip link set dev lan1 up
+    root@clearfog:~# ip addr add 192.0.2.2/24 dev lan1
