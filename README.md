@@ -1,5 +1,7 @@
 Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun ClearFog GT 8k](https://www.solid-run.com/marvell-armada-family/clearfog-gt-8k/).
 
+**N.B.** this is a work-in-progress so not ready for public consumption; it is mostly a collection of unorganised notes so far
+
 ## TODO
 
  * need to include `fsck.ext4` in first initramfs build
