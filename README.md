@@ -100,9 +100,9 @@ Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin`
 
 ## rootfs
 
-As the eMMC image is 7.3GiB (yeah, part of the 8GB) we do not want to be uploading this over the serial port. This would not work either as the whole image would need to fit uncompressed within the 4GiB RAM that is available to the unit which is not going to happen. The final nail in the coffin is that `mmc write` from u-boot goes at ~32kiB/sec so really do not bother trying.
+As the eMMC image is ~7.3GiB (aka 8GB) we do not want to be uploading this over the serial port. This would not work anyway as the whole image would need to fit uncompressed within the 4GiB RAM that is available to the unit which is not going to happen. The final nail in the coffin is that `mmc write` in u-boot goes at a blazing ~32kiB/sec so really do not bother trying.
 
-You could use USB but for me u-boot (v2020.10) crashes and reboots with the USB key I have.
+**N.B.** USB was not an option for two reasons, firstly the size of the image and RAM avaliable, but for me u-boot (v2020.10) crashes and reboots with the USB key I have.
 
 Instead we will upload via a NIC (at 7MiB/s) via u-boot over TFTP.
 
