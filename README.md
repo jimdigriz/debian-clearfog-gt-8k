@@ -173,17 +173,20 @@ The eMMC image has now been burnt and if you restart the system, from u-boot you
                   83 System.map-5.8.0-0.bpo.2-arm64
               245879 config-5.8.0-0.bpo.2-arm64
             22159216 vmlinuz-5.8.0-0.bpo.2-arm64
-            27038539 initrd.img-5.8.0-0.bpo.2-arm64
+            27038636 initrd.img-5.8.0-0.bpo.2-arm64
+    <SYM>         27 vmlinuz
+    <SYM>         30 initrd.img
+    <DIR>       1024 marvell
 
 **N.B.** root filesystem partition is formatted with [F2FS](https://en.wikipedia.org/wiki/F2FS) and is not readable to u-boot
 
-    load mmc 0:2 $kernel_addr_r vmlinuz-5.8.0-0.bpo.2-arm64
-    load mmc 0:2 $ramdisk_addr_r initrd.img-5.8.0-0.bpo.2-arm64
+    load mmc 0:2 $kernel_addr_r vmlinuz
+    load mmc 0:2 $ramdisk_addr_r initrd.img
     load mmc 0:2 $fdt_addr_r marvell/armada-8040-clearfog-gt-8k.dtb
     fdt addr $fdt_addr_r
     fdt resize
     fdt chosen ${ramdisk_addr_r} 0x20000000
-    setenv bootargs earlyprintk panic=10 ro
+    setenv bootargs earlyprintk panic=10 root=/dev/mmcblk0p1 rootdelay=10 ro
     bootefi $kernel_addr_r $fdt_addr_r
 
 ...and now we get it crashing:
