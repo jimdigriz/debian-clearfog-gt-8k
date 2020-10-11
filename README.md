@@ -4,9 +4,6 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
 ## TODO
 
- * need to include `fsck.ext4` in first initramfs build
-   * `Warning: couldn't identify filesystem type for fsck hook, ignoring`
-   * [looks like this, but suggested fix seems not to work](https://isolated.site/2019/02/17/update-initramfs-fails-to-include-fsck-in-initrd/)
  * `mmc write` explodes with `"Synchronous Abort" handler`
  * `usb start` with a USB3 key (todo, test USB2 works) explodes with `BUG at drivers/usb/host/xhci-ring.c abort_td()`
  * figure out why `ROOT_IMG_SIZE_MB` needs the `-1`
