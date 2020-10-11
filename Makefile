@@ -43,7 +43,10 @@ mv-ddr-marvell/.stamp: MARVELL_DDR_GIT ?= https://github.com/MarvellEmbeddedProc
 mv-ddr-marvell/.stamp: MARVELL_DDR_REF ?= mv_ddr-armada-18.12
 mv-ddr-marvell/.stamp:
 	git clone $(GIT_TRIM) -b $(MARVELL_DDR_REF) $(MARVELL_DDR_GIT) $(@D)
-	git -C $(@D) grep -l '\-Werror' | sed -e 's~^~$(@D)/~' | xargs -r sed -i -e 's/ -Werror//g'
+	# https://github.com/MarvellEmbeddedProcessors/mv-ddr-marvell/pull/19
+	git -C $(@D) remote add pr19 https://github.com/philhofer/mv-ddr-marvell.git
+	git -C $(@D) fetch pr19 mv_ddr-armada-18.12
+	git -C $(@D) cherry-pick 1e4cd057a61000cf7d29f7047b68c2cade604465
 	@touch $@
 DISTCLEAN += mv-ddr-marvell
 
