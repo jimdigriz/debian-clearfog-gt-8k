@@ -14,6 +14,7 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
  * SolidRun
      * [ClearFog GT 8K - Product Overview](https://developer.solid-run.com/knowledge-base/clearfog-gt-8k-getting-started/)
      * [Armada 8040 U-Boot and ATF](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/)
+     * [ARMADA A8040 Debian](https://developer.solid-run.com/knowledge-base/armada-8040-debian/)
 
 # Pre-flight
 
@@ -36,9 +37,9 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
 Build the root filesystem, downloads ~150MB plus roughly 10 mins, the project should emit a single file `rootfs.img`.
 
-    sudo make
+    make
 
-**N.B.** `sudo` is needed to create devices
+**N.B.** you will be prompted to `sudo` up as parts of the build need to create devices, create mountpoints and read root owned files in the chroot
 
 # Deploy
 

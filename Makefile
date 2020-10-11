@@ -8,6 +8,15 @@ GIT_TRIM ?= --single-branch --no-tags --depth 1
 
 JOBS ?= $(shell echo $$(($$(getconf _NPROCESSORS_ONLN) + 1)))
 
+# partition table lives in here
+F2FS_SEGMENT_SIZE_MB = 2
+# 'User Capacity' from u-boot cmd 'mmc info'
+EMMC_SIZE_MB ?= 7475
+
+# supports roughly four pairs of kernel/initramfs
+BOOT_IMG_SIZE_MB ?= 250
+ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB) - 1)))
+
 .PHONY: all
 all: gpt.img boot.img rootfs.img
 
@@ -57,25 +66,15 @@ flash-image.bin: atf-marvell/build/a80x0_mcbin/release/flash-image.bin
 	ln -f $< $@
 
 boot.img: SIZE = $(shell echo $$(($(shell du -smx --apparent-size rootfs/boot | cut -f1) * 10)))
-boot.img: .stamp.rootfs
-	sudo /usr/sbin/mkfs.ext4 -d
+boot.img: rootfs/.stamp
+	sudo /usr/sbin/mkfs.ext4 -d $(dir $<) $@ $(SIZE)
 CLEAN ?= boot.img
-
-# partition table lives in here
-F2FS_SEGMENT_SIZE_MB = 2
-
-# uboot> mmc info
-# User Capacity
-EMMC_SIZE_MB ?= 7475
-
-# supports roughly four pairs of kernel/initramfs
-BOOT_IMG_SIZE_MB ?= 250
-ROOT_IMG_SIZE_MB ?= $(shell echo $$(($(EMMC_SIZE_MB) - $(BOOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB) - 1)))
 
 mmc-image.bin: gpt.img boot.img rootfs.img
 	cp --sparse=always $< $@
 	dd bs=1M conv=notrunc seek=$(F2FS_SEGMENT_SIZE_MB) if=boot.img of=$@
 	dd bs=1M conv=notrunc seek=$$(($(F2FS_SEGMENT_SIZE_MB) + $(BOOT_IMG_SIZE_MB))) if=rootfs.img of=$@
+CLEAN += mmc-image.img
 
 gpt.img: boot.img
 	truncate -s $(EMMC_SIZE_MB)M $@
@@ -83,11 +82,13 @@ gpt.img: boot.img
 			$$(($(BOOT_IMG_SIZE_MB) * 1024 * 1024 / 512)) \
 			$$(($(ROOT_IMG_SIZE_MB) * 1024 * 1024 / 512)) \
 		| /sbin/sfdisk --no-reread --no-tell-kernel $@
+CLEAN += gpt.img
 
-boot.img: .stamp.rootfs
+boot.img: rootfs/.stamp
 	sudo /sbin/mkfs.ext4 -L boot -d rootfs/boot $@ $(BOOT_IMG_SIZE_MB)M
+CLEAN += boot.img
 
-rootfs.img: .stamp.rootfs
+rootfs.img: rootfs/.stamp
 	truncate -s $$(($(ROOT_IMG_SIZE_MB) - $(F2FS_SEGMENT_SIZE_MB)))M $@
 	/sbin/mkfs.f2fs -l root $@
 	export MOUNTDIR=$$(mktemp -t -d) \
@@ -95,18 +96,17 @@ rootfs.img: .stamp.rootfs
 		&& sudo tar cC rootfs --exclude='boot/*' . | sudo tar xC $$MOUNTDIR \
 		&& sudo umount $$MOUNTDIR \
 		&& rmdir $$MOUNTDIR
+CLEAN += rootfs.img
 
-CLEAN ?= rootfs.img
-
-.stamp.rootfs: MIRROR ?= http://deb.debian.org/debian
-.stamp.rootfs: RELEASE ?= $(shell . /etc/os-release && echo $$VERSION_CODENAME)
-.stamp.rootfs: CACHE ?= $(CURDIR)/cache
-.stamp.rootfs: packages | umount
-ifneq ($(filter nodev,$(shell findmnt -n -o options --target rootfs | tr , ' ')),)
-	@echo rootfs needs to be on a non-nodev mountpoint
+rootfs/.stamp: MIRROR ?= http://deb.debian.org/debian
+rootfs/.stamp: RELEASE ?= $(shell . /etc/os-release && echo $$VERSION_CODENAME)
+rootfs/.stamp: CACHE ?= $(CURDIR)/cache
+rootfs/.stamp: packages | umount
+ifneq ($(filter nodev,$(shell findmnt -n -o options --target $(@D) | tr , ' ')),)
+	@echo '$(@D)' needs to be on a non-nodev mountpoint
 	@exit 1
 endif
-	@rm -rf "rootfs"
+	@rm -rf "$(@D)"
 	@mkdir -p "$(CACHE)"
 	sudo debootstrap \
 		--arch arm64 \
@@ -114,16 +114,10 @@ endif
 		--foreign \
 		--include=$(shell cat $< | tr '\n' , | sed -e 's/\s\+//g; s/,$$//') \
 		--variant=minbase \
-		$(RELEASE) rootfs $(MIRROR)
-	chroot rootfs /debootstrap/debootstrap --second-stage
-	echo deb $(MIRROR) $(RELEASE)-backports main > rootfs/etc/apt/sources.list.d/debian-backports.list
-	chroot rootfs apt-get update
-	chroot rootfs apt-get -y --option=Dpkg::options::=--force-unsafe-io install --no-install-recommends \
-		linux-image-arm64/$(RELEASE)-backports
-	chroot rootfs apt-get clean
-	find rootfs/var/lib/apt/lists -type f -delete
-	@touch "$@"
-CLEAN += .stamp.rootfs rootfs
+		$(RELEASE) $(@D) $(MIRROR)
+	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
+	@touch $@
+CLEAN += rootfs
 
 .PHONY: umount
 umount:
