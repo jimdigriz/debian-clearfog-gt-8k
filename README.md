@@ -193,7 +193,7 @@ The vanilla Debian kernel and initramfs should now boot and your rootfs mount.
 
 ...TODO fix u-boot to boot automatically
 
-### Usage
+# Usage
 
  * there is no password for the `root` user, so you can log in trivially with the serial console
  * though `systemd-timesyncd` should automatically handle this for you, if you are too quick typing `apt-get update` you may find you need to fix up the current date time with `date -s 2019-09-25`
@@ -202,7 +202,7 @@ The vanilla Debian kernel and initramfs should now boot and your rootfs mount.
 
 This is a stock regular no-frills Debian installation, of significant note is that it does not have an SSH server and you will need to manually configured the networking to match your needs.
 
-#### Network
+## Network
 
 There are three network interfaces (`eth[0-2]`):
 
@@ -244,3 +244,7 @@ Now you can configure the `lanX` ports as usual:
 
     root@clearfog:~# ip link set dev lan1 up
     root@clearfog:~# ip addr add 192.0.2.2/24 dev lan1
+
+### SFP
+
+Annoyingly my [VDSL2 SFP Modem](https://www.proscend.com/en/product/VDSL2-SFP-Modem-for-Telco/180-T.html) is 2mm or 3mm too high to fit in the SFP slot...so I am probably going to have to cut into the chassis.
