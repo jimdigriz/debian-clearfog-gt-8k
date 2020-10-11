@@ -65,11 +65,6 @@ atf-marvell/build/a80x0_mcbin/release/flash-image.bin:
 flash-image.bin: atf-marvell/build/a80x0_mcbin/release/flash-image.bin
 	ln -f $< $@
 
-boot.img: SIZE = $(shell echo $$(($(shell du -smx --apparent-size rootfs/boot | cut -f1) * 10)))
-boot.img: rootfs/.stamp
-	sudo /usr/sbin/mkfs.ext4 -d $(dir $<) $@ $(SIZE)
-CLEAN ?= boot.img
-
 mmc-image.bin: gpt.img boot.img rootfs.img
 	cp --sparse=always $< $@
 	dd bs=1M conv=notrunc seek=$(F2FS_SEGMENT_SIZE_MB) if=boot.img of=$@
@@ -102,10 +97,10 @@ rootfs/.stamp: MIRROR ?= http://deb.debian.org/debian
 rootfs/.stamp: RELEASE ?= $(shell . /etc/os-release && echo $$VERSION_CODENAME)
 rootfs/.stamp: CACHE ?= $(CURDIR)/cache
 rootfs/.stamp: packages | umount
-ifneq ($(filter nodev,$(shell findmnt -n -o options --target $(@D) | tr , ' ')),)
-	@echo '$(@D)' needs to be on a non-nodev mountpoint
-	@exit 1
-endif
+	@findmnt -n -o options --target rootfs | grep -q -v nodev || { \
+		echo '$(@D)' needs to be on a non-nodev mountpoint >&2; \
+		exit 1; \
+	}
 	@rm -rf "$(@D)"
 	@mkdir -p "$(CACHE)"
 	sudo debootstrap \
@@ -118,17 +113,18 @@ endif
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
 	@touch $@
 CLEAN += rootfs
+DISTCLEAN += cache
 
 .PHONY: umount
 umount:
-	sudo findmnt -n -R -o target -l --target rootfs | sed 1d | tac | xargs -r -n1 umount || true
+	findmnt -n -R -o target -l --target rootfs | sed 1d | tac | xargs -r -n1 sudo umount || true
 
 .PHONY: clean
 clean: umount
-	make -C atf-marvell -j$(JOBS) CROSS_COMPILE=aarch64-linux-gnu- PLAT=a80x0_mcbin MV_DDR_PATH='$(CURDIR)/mv-ddr-marvell' SCP_BL2=/dev/null clean
-	make -C u-boot clean
+	test ! -f atf-marvell/.stamp || make -C atf-marvell -j$(JOBS) CROSS_COMPILE=aarch64-linux-gnu- PLAT=a80x0_mcbin MV_DDR_PATH='$(CURDIR)/mv-ddr-marvell' SCP_BL2=/dev/null clean
+	test ! -f u-boot/.stamp || make -C u-boot clean
 ifneq ($(CLEAN),)
-	rm -rf $(CLEAN)
+	sudo rm -rf $(CLEAN)
 endif
 
 .PHONY: distclean
