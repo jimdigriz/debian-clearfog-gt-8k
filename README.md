@@ -51,7 +51,7 @@ The problem is if you have an enclosure as:
  * you cannot reassemble the enclosure with the serial cable plugged in as typical breadboard jumpers are too tall
  * you think this is okay
  * ...until you notice the SoC is *very* hot as the chassis is used as the heat sink and is no longer attached!
- * you order a [six (6) way female IDC with jumper pins at the other end](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)
+ * you order a [six way female IDC with jumper pins at the other end (POPESQ #A2559)](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)
  * ...the plug is still too tall
  * you take a scalpel to the IDC port to remove some of the height, now the lid fits
  * ...only to find that one of the chassis screw mounts is immediately next to the serial post and now cannot fit into place as the IDC port is also slightly too wide
