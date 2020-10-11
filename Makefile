@@ -10,8 +10,8 @@ JOBS ?= $(shell echo $$(($$(getconf _NPROCESSORS_ONLN) + 1)))
 
 # partition table lives in here
 F2FS_SEGMENT_SIZE_MB = 2
-# 'User Capacity' from u-boot cmd 'mmc info'
-EMMC_SIZE_MB ?= 7475
+# u-boot cmd 'mmc write $ramdisk_addr_r 0x2000000 0x1000'
+EMMC_SIZE_MB ?= 7456
 
 # supports roughly four pairs of kernel/initramfs
 BOOT_IMG_SIZE_MB ?= 250
