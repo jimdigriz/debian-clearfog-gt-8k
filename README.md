@@ -110,7 +110,7 @@ Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin`
     fdt addr $fdt_addr_r
     fdt resize
     fdt chosen ${ramdisk_addr_r} 0x20000000
-    setenv bootargs earlyprintk panic=10
+    setenv bootargs earlyprintk panic=10 root=/dev/ram0 rw rdinit=/sbin/init
     bootefi $kernel_addr_r $fdt_addr_r
 
 ### Network
