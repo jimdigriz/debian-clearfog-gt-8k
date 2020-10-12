@@ -1,0 +1,688 @@
+Scanning disk sdhci@6e0000.blk...
+** Unrecognized filesystem type **
+Card did not respond to voltage select!
+Scanning disk sdhci@780000.blk...
+Disk sdhci@780000.blk not ready
+Found 3 disks
+No EFI system partition
+Booting /marvell\armada-8040-clearfog-gt
+EFI stub: Booting Linux Kernel...
+EFI stub: EFI_RNG_PROTOCOL unavailable, no randomness supplied
+EFI stub: Using DTB from configuration table
+EFI stub: Exiting boot services and installing virtual address map...
+[    0.000000] Booting Linux on physical CPU 0x0000000000 [0x410fd081]
+[    0.000000] Linux version 5.8.0-0.bpo.2-arm64 (debian-kernel@lists.debian.org) (gcc-8 (Debian 8.3.0-6) 8.3.0, GNU ld (GNU Binutils for Debian) 2.31.1) #1 SMP Debian 5.8.10-1~bpo10+1 (2020-09-26)
+[    0.000000] Machine model: SolidRun ClearFog GT 8K
+[    0.000000] efi: EFI v2.80 by Das U-Boot
+[    0.000000] efi: RTPROP=0x7eb10040 SMBIOS=0x7eb0c000 MEMRESERVE=0x7d545040 
+[    0.000000] secureboot: Secure boot disabled
+[    0.000000] cma: Reserved 64 MiB at 0x00000000bc000000
+[    0.000000] NUMA: No NUMA configuration found
+[    0.000000] NUMA: Faking a node at [mem 0x0000000000000000-0x000000013fffffff]
+[    0.000000] NUMA: NODE_DATA [mem 0x13f7cf100-0x13f7d0fff]
+[    0.000000] Zone ranges:
+[    0.000000]   DMA      [mem 0x0000000000000000-0x000000003fffffff]
+[    0.000000]   DMA32    [mem 0x0000000040000000-0x00000000ffffffff]
+[    0.000000]   Normal   [mem 0x0000000100000000-0x000000013fffffff]
+[    0.000000] Movable zone start for each node
+[    0.000000] Early memory node ranges
+[    0.000000]   node   0: [mem 0x0000000000000000-0x0000000003ffffff]
+[    0.000000]   node   0: [mem 0x0000000004200000-0x000000007eb06fff]
+[    0.000000]   node   0: [mem 0x000000007eb07000-0x000000007eb0afff]
+[    0.000000]   node   0: [mem 0x000000007eb0b000-0x000000007eb0bfff]
+[    0.000000]   node   0: [mem 0x000000007eb0c000-0x000000007eb0cfff]
+[    0.000000]   node   0: [mem 0x000000007eb0d000-0x000000007eb0efff]
+[    0.000000]   node   0: [mem 0x000000007eb0f000-0x000000007eb12fff]
+[    0.000000]   node   0: [mem 0x000000007eb13000-0x000000007eb13fff]
+[    0.000000]   node   0: [mem 0x000000007eb14000-0x000000007eb18fff]
+[    0.000000]   node   0: [mem 0x000000007eb19000-0x000000007eb19fff]
+[    0.000000]   node   0: [mem 0x000000007eb1a000-0x000000007eb1afff]
+[    0.000000]   node   0: [mem 0x000000007eb1b000-0x000000007eb1cfff]
+[    0.000000]   node   0: [mem 0x000000007eb1d000-0x000000007eb1dfff]
+[    0.000000]   node   0: [mem 0x000000007eb1e000-0x000000007eb1efff]
+[    0.000000]   node   0: [mem 0x000000007eb1f000-0x000000007eb22fff]
+[    0.000000]   node   0: [mem 0x000000007eb23000-0x000000007eb23fff]
+[    0.000000]   node   0: [mem 0x000000007eb24000-0x000000007eb24fff]
+[    0.000000]   node   0: [mem 0x000000007eb25000-0x000000007ff2ffff]
+[    0.000000]   node   0: [mem 0x000000007ff30000-0x000000007ff3ffff]
+[    0.000000]   node   0: [mem 0x000000007ff40000-0x00000000bfffffff]
+[    0.000000]   node   0: [mem 0x0000000100000000-0x000000013fffffff]
+[    0.000000] Zeroed struct page in unavailable ranges: 37 pages
+[    0.000000] Initmem setup node 0 [mem 0x0000000000000000-0x000000013fffffff]
+[    0.000000] On node 0 totalpages: 1048064
+[    0.000000]   DMA zone: 4096 pages used for memmap
+[    0.000000]   DMA zone: 0 pages reserved
+[    0.000000]   DMA zone: 261632 pages, LIFO batch:63
+[    0.000000]   DMA32 zone: 8192 pages used for memmap
+[    0.000000]   DMA32 zone: 524288 pages, LIFO batch:63
+[    0.000000]   Normal zone: 4096 pages used for memmap
+[    0.000000]   Normal zone: 262144 pages, LIFO batch:63
+[    0.000000] psci: probing for conduit method from DT.
+[    0.000000] psci: PSCIv1.1 detected in firmware.
+[    0.000000] psci: Using standard PSCI v0.2 function IDs
+[    0.000000] psci: MIGRATE_INFO_TYPE not supported.
+[    0.000000] psci: SMC Calling Convention v1.1
+[    0.000000] percpu: Embedded 33 pages/cpu s94552 r8192 d32424 u135168
+[    0.000000] pcpu-alloc: s94552 r8192 d32424 u135168 alloc=33*4096
+[    0.000000] pcpu-alloc: [0] 0 [0] 1 [0] 2 [0] 3 
+[    0.000000] Detected PIPT I-cache on CPU0
+[    0.000000] CPU features: detected: EL2 vector hardening
+[    0.000000] CPU features: kernel page table isolation forced ON by KASLR
+[    0.000000] CPU features: detected: Kernel page table isolation (KPTI)
+[    0.000000] Speculative Store Bypass Disable mitigation not required
+[    0.000000] CPU features: detected: ARM errata 1165522, 1319367, or 1530923
+[    0.000000] Built 1 zonelists, mobility grouping on.  Total pages: 1031680
+[    0.000000] Policy zone: Normal
+[    0.000000] Kernel command line: earlyprintk panic=10 root=/dev/mmcblk0p1 rootdelay=10 ro
+[    0.000000] Dentry cache hash table entries: 524288 (order: 10, 4194304 bytes, linear)
+[    0.000000] Inode-cache hash table entries: 262144 (order: 9, 2097152 bytes, linear)
+[    0.000000] mem auto-init: stack:off, heap alloc:on, heap free:off
+[    0.000000] software IO TLB: mapped [mem 0x3bfff000-0x3ffff000] (64MB)
+[    0.000000] Memory: 3564464K/4192256K available (10748K kernel code, 1862K rwdata, 3808K rodata, 5184K init, 559K bss, 562256K reserved, 65536K cma-reserved)
+[    0.000000] random: get_random_u64 called from __kmem_cache_create+0x4c/0x5d0 with crng_init=0
+[    0.000000] SLUB: HWalign=64, Order=0-3, MinObjects=0, CPUs=4, Nodes=1
+[    0.000000] ftrace: allocating 37046 entries in 145 pages
+[    0.000000] ftrace: allocated 145 pages with 3 groups
+[    0.000000] rcu: Hierarchical RCU implementation.
+[    0.000000] rcu: 	RCU restricting CPUs from NR_CPUS=256 to nr_cpu_ids=4.
+[    0.000000] 	Rude variant of Tasks RCU enabled.
+[    0.000000] rcu: RCU calculated value of scheduler-enlistment delay is 25 jiffies.
+[    0.000000] rcu: Adjusting geometry for rcu_fanout_leaf=16, nr_cpu_ids=4
+[    0.000000] NR_IRQS: 64, nr_irqs: 64, preallocated irqs: 0
+[    0.000000] GIC: Adjusting CPU interface base to 0x00000000f022f000
+[    0.000000] GIC: Using split EOI/Deactivate mode
+[    0.000000] GICv2m: DT overriding V2M MSI_TYPER (base:160, num:32)
+[    0.000000] GICv2m: range[mem 0xf0280000-0xf0280fff], SPI[160:191]
+[    0.000000] GICv2m: DT overriding V2M MSI_TYPER (base:192, num:32)
+[    0.000000] GICv2m: range[mem 0xf0290000-0xf0290fff], SPI[192:223]
+[    0.000000] GICv2m: DT overriding V2M MSI_TYPER (base:224, num:32)
+[    0.000000] GICv2m: range[mem 0xf02a0000-0xf02a0fff], SPI[224:255]
+[    0.000000] GICv2m: DT overriding V2M MSI_TYPER (base:256, num:32)
+[    0.000000] GICv2m: range[mem 0xf02b0000-0xf02b0fff], SPI[256:287]
+[    0.000000] arch_timer: cp15 timer(s) running at 25.00MHz (phys).
+[    0.000000] clocksource: arch_sys_counter: mask: 0xffffffffffffff max_cycles: 0x5c40939b5, max_idle_ns: 440795202646 ns
+[    0.000001] sched_clock: 56 bits at 25MHz, resolution 40ns, wraps every 4398046511100ns
+[    0.000191] Console: colour dummy device 80x25
+[    0.000373] printk: console [tty0] enabled
+[    0.000423] Calibrating delay loop (skipped), value calculated using timer frequency.. 50.00 BogoMIPS (lpj=100000)
+[    0.000431] pid_max: default: 32768 minimum: 301
+[    0.000483] LSM: Security Framework initializing
+[    0.000497] Yama: disabled by default; enable with sysctl kernel.yama.*
+[    0.000551] AppArmor: AppArmor initialized
+[    0.000557] TOMOYO Linux initialized
+[    0.000598] Mount-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.000616] Mountpoint-cache hash table entries: 8192 (order: 4, 65536 bytes, linear)
+[    0.001354] rcu: Hierarchical SRCU implementation.
+[    0.002271] Remapping and enabling EFI services.
+[    0.002476] smp: Bringing up secondary CPUs ...
+[    0.002830] Detected PIPT I-cache on CPU1
+[    0.002865] CPU1: Booted secondary processor 0x0000000001 [0x410fd081]
+[    0.003255] Detected PIPT I-cache on CPU2
+[    0.003279] CPU2: Booted secondary processor 0x0000000100 [0x410fd081]
+[    0.003662] Detected PIPT I-cache on CPU3
+[    0.003678] CPU3: Booted secondary processor 0x0000000101 [0x410fd081]
+[    0.003719] smp: Brought up 1 node, 4 CPUs
+[    0.003738] SMP: Total of 4 processors activated.
+[    0.003743] CPU features: detected: 32-bit EL0 Support
+[    0.003748] CPU features: detected: CRC32 instructions
+[    0.003752] CPU features: detected: 32-bit EL1 Support
+[    0.014982] CPU: All CPU(s) started at EL2
+[    0.015014] alternatives: patching kernel code
+[    0.016077] devtmpfs: initialized
+[    0.018392] Registered cp15_barrier emulation handler
+[    0.018406] Registered setend emulation handler
+[    0.018412] KASLR disabled due to lack of seed
+[    0.018639] clocksource: jiffies: mask: 0xffffffff max_cycles: 0xffffffff, max_idle_ns: 7645041785100000 ns
+[    0.018665] futex hash table entries: 1024 (order: 4, 65536 bytes, linear)
+[    0.019415] pinctrl core: initialized pinctrl subsystem
+[    0.019632] thermal_sys: Registered thermal governor 'fair_share'
+[    0.019634] thermal_sys: Registered thermal governor 'step_wise'
+[    0.019995] SMBIOS 3.0 present.
+[    0.020006] DMI: Unknown Unknown/Unknown, BIOS 2020.10 10/11/2020
+[    0.020229] NET: Registered protocol family 16
+[    0.020774] DMA: preallocated 512 KiB GFP_KERNEL pool for atomic allocations
+[    0.021027] DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA pool for atomic allocations
+[    0.021124] DMA: preallocated 512 KiB GFP_KERNEL|GFP_DMA32 pool for atomic allocations
+[    0.021158] audit: initializing netlink subsys (disabled)
+[    0.021256] audit: type=2000 audit(0.020:1): state=initialized audit_enabled=0 res=1
+[    0.021723] cpuidle: using governor ladder
+[    0.021818] cpuidle: using governor menu
+[    0.021865] hw-breakpoint: found 6 breakpoint and 4 watchpoint registers.
+[    0.021912] ASID allocator initialised with 32768 entries
+[    0.022051] Serial: AMBA PL011 UART driver
+[    0.030902] HugeTLB registered 1.00 GiB page size, pre-allocated 0 pages
+[    0.030912] HugeTLB registered 32.0 MiB page size, pre-allocated 0 pages
+[    0.030917] HugeTLB registered 2.00 MiB page size, pre-allocated 0 pages
+[    0.030921] HugeTLB registered 64.0 KiB page size, pre-allocated 0 pages
+[    0.231092] ACPI: Interpreter disabled.
+[    0.231205] iommu: Default domain type: Translated 
+[    0.231312] vgaarb: loaded
+[    0.231463] EDAC MC: Ver: 3.0.0
+[    0.231691] Registered efivars operations
+[    0.232066] NetLabel: Initializing
+[    0.232072] NetLabel:  domain hash size = 128
+[    0.232075] NetLabel:  protocols = UNLABELED CIPSOv4 CALIPSO
+[    0.232113] NetLabel:  unlabeled traffic allowed by default
+[    0.232229] clocksource: Switched to clocksource arch_sys_counter
+[    0.252103] VFS: Disk quotas dquot_6.6.0
+[    0.252144] VFS: Dquot-cache hash table entries: 512 (order 0, 4096 bytes)
+[    0.252440] AppArmor: AppArmor Filesystem Enabled
+[    0.252581] pnp: PnP ACPI: disabled
+[    0.255460] NET: Registered protocol family 2
+[    0.255718] tcp_listen_portaddr_hash hash table entries: 2048 (order: 3, 32768 bytes, linear)
+[    0.255797] TCP established hash table entries: 32768 (order: 6, 262144 bytes, linear)
+[    0.256003] TCP bind hash table entries: 32768 (order: 7, 524288 bytes, linear)
+[    0.256207] TCP: Hash tables configured (established 32768 bind 32768)
+[    0.256310] UDP hash table entries: 2048 (order: 4, 65536 bytes, linear)
+[    0.256367] UDP-Lite hash table entries: 2048 (order: 4, 65536 bytes, linear)
+[    0.256494] NET: Registered protocol family 1
+[    0.256510] NET: Registered protocol family 44
+[    0.256519] PCI: CLS 0 bytes, default 64
+[    0.256623] Trying to unpack rootfs image as initramfs...
+[    0.846614] Initramfs unpacking failed: invalid magic at start of compressed archive
+[    0.942707] Freeing initrd memory: 393216K
+[    0.943112] hw perfevents: unable to count PMU IRQs
+[    0.943125] hw perfevents: /ap806/config-space@f0000000/pmu: failed to register PMU devices!
+[    0.943313] kvm [1]: IPA Size Limit: 44bits
+[    0.943589] kvm [1]: vgic interrupt IRQ1
+[    0.943665] kvm [1]: Hyp mode initialized successfully
+[    0.944267] Initialise system trusted keyrings
+[    0.944291] Key type blacklist registered
+[    0.944379] workingset: timestamp_bits=44 max_order=20 bucket_order=0
+[    0.946250] zbud: loaded
+[    0.946501] integrity: Platform Keyring initialized
+[    0.946509] Key type asymmetric registered
+[    0.946513] Asymmetric key parser 'x509' registered
+[    0.946533] Block layer SCSI generic (bsg) driver version 0.4 loaded (major 249)
+[    0.946623] io scheduler mq-deadline registered
+[    0.949092] armada-ap806-pinctrl f06f4000.system-controller:pinctrl: registered pinctrl driver
+[    0.949413] armada-cp110-pinctrl f2440000.system-controller:pinctrl: registered pinctrl driver
+[    0.949481] debugfs: Directory 'dummy-system-controller@440000' with parent 'regmap' already present!
+[    0.949626] armada-cp110-pinctrl f4440000.system-controller:pinctrl: registered pinctrl driver
+[    0.950642] gpio-65 (sata_reset): hogged as output/high
+[    0.950656] gpio-66 (lte_reset): hogged as output/low
+[    0.950667] gpio-83 (wlan_disable): hogged as output/low
+[    0.950677] gpio-85 (lte_disable): hogged as output/low
+[    0.951313] shpchp: Standard Hot Plug PCI Controller Driver version: 0.4
+[    0.954485] mv_xor_v2 f0400000.xor: Marvell Version 2 XOR driver
+[    0.954808] mv_xor_v2 f0420000.xor: Marvell Version 2 XOR driver
+[    0.955137] mv_xor_v2 f0440000.xor: Marvell Version 2 XOR driver
+[    0.955457] mv_xor_v2 f0460000.xor: Marvell Version 2 XOR driver
+[    0.955859] mv_xor_v2 f26a0000.xor: Marvell Version 2 XOR driver
+[    0.956191] mv_xor_v2 f26c0000.xor: Marvell Version 2 XOR driver
+[    0.956581] mv_xor_v2 f46a0000.xor: Marvell Version 2 XOR driver
+[    0.956913] mv_xor_v2 f46c0000.xor: Marvell Version 2 XOR driver
+[    0.958059] Serial: 8250/16550 driver, 4 ports, IRQ sharing enabled
+[    0.979161] f0512000.serial: ttyS0 at MMIO 0xf0512000 (irq = 8, base_baud = 12500000) is a 16550A
+[    2.120785] printk: console [ttyS0] enabled
+[    2.125358] Serial: AMBA driver
+[    2.128659] msm_serial: driver initialized
+[    2.133768] mousedev: PS/2 mouse device common for all mice
+[    2.140191] ledtrig-cpu: registered to indicate activity on CPUs
+[    2.147097] NET: Registered protocol family 10
+[    2.165443] Segment Routing with IPv6
+[    2.169177] mip6: Mobile IPv6
+[    2.172158] NET: Registered protocol family 17
+[    2.176696] mpls_gso: MPLS GSO support
+[    2.180636] registered taskstats version 1
+[    2.184765] Loading compiled-in X.509 certificates
+[    2.235200] Loaded X.509 cert 'Debian Secure Boot CA: 6ccece7e4c6c0d1f6149f3dd27dfcc5cbb419ea1'
+[    2.243968] Loaded X.509 cert 'Debian Secure Boot Signer 2020: 00b55eb3b9'
+[    2.250934] zswap: loaded using pool lzo/zbud
+[    2.255514] Key type ._fscrypt registered
+[    2.259557] Key type .fscrypt registered
+[    2.263502] Key type fscrypt-provisioning registered
+[    2.268567] AppArmor: AppArmor sha1 policy hashing enabled
+[    2.276144] hw perfevents: enabled with armv8_cortex_a72 PMU driver, 7 counters available
+[    2.288457] Freeing unused kernel memory: 5184K
+[    2.317316] Checked W+X mappings: passed, no W+X pages found
+[    2.323024] Run /init as init process
+[    2.326707]   with arguments:
+[    2.326708]     /init
+[    2.326710]     earlyprintk
+[    2.326711]   with environment:
+[    2.326713]     HOME=/
+[    2.326714]     TERM=linux
+[    2.449397] armada38x-rtc f4284000.rtc: registered as rtc0
+[    2.449946] armada8k-pcie f2600000.pcie: host bridge /cp0/pcie@f2600000 ranges:
+[    2.462309] armada38x-rtc f4284000.rtc: setting system clock to 1980-12-27T20:29:45 UTC (346796985)
+[    2.463872] armada8k-pcie f2600000.pcie:      MEM 0x00f6000000..0x00f6efffff -> 0x00f6000000
+[    2.480495] input: keys as /devices/platform/keys/input/input0
+[    2.486885] libphy: Fixed MDIO Bus: probed
+[    2.490133] SCSI subsystem initialized
+[    2.498734] sdhci: Secure Digital Host Controller Interface driver
+[    2.504991] sdhci: Copyright(c) Pierre Ossman
+[    2.513250] libphy: orion_mdio_bus: probed
+[    2.520482] sdhci-pltfm: SDHCI platform and OF driver helper
+[    2.528048] libphy: SFP I2C Bus: probed
+[    2.528213] libata version 3.00 loaded.
+[    2.531146] usbcore: registered new interface driver usbfs
+[    2.531162] usbcore: registered new interface driver hub
+[    2.531278] usbcore: registered new device driver usb
+[    2.543997] sfp sfp-cp0-eth0: Host maximum power 2.0W
+[    2.553474] mvpp2 f2000000.ethernet: using 8 per-cpu buffers
+[    2.557114] xhci-hcd f2510000.usb3: xHCI Host Controller
+[    2.564747] xhci-hcd f2510000.usb3: new USB bus registered, assigned bus number 1
+[    2.572360] mmc0: SDHCI controller on f06e0000.sdhci [f06e0000.sdhci] using ADMA 64-bit
+[    2.581008] ahci f4540000.sata: supply ahci not found, using dummy regulator
+[    2.581075] mvpp2 f2000000.ethernet eth0: Using random mac address 76:4b:50:07:7c:c0
+[    2.581510] xhci-hcd f2510000.usb3: hcc params 0x0a000990 hci version 0x100 quirks 0x0000000000010010
+[    2.581536] xhci-hcd f2510000.usb3: irq 35, io mem 0xf2510000
+[    2.581670] usb usb1: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 5.08
+[    2.581673] usb usb1: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.581675] usb usb1: Product: xHCI Host Controller
+[    2.581677] usb usb1: Manufacturer: Linux 5.8.0-0.bpo.2-arm64 xhci-hcd
+[    2.581679] usb usb1: SerialNumber: f2510000.usb3
+[    2.581937] hub 1-0:1.0: USB hub found
+[    2.581954] hub 1-0:1.0: 1 port detected
+[    2.582153] xhci-hcd f2510000.usb3: xHCI Host Controller
+[    2.582158] xhci-hcd f2510000.usb3: new USB bus registered, assigned bus number 2
+[    2.582163] xhci-hcd f2510000.usb3: Host supports USB 3.0 SuperSpeed
+[    2.582190] usb usb2: We don't know the algorithms for LPM for this host, disabling LPM.
+[    2.582252] usb usb2: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 5.08
+[    2.582255] usb usb2: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    2.582256] usb usb2: Product: xHCI Host Controller
+[    2.582258] usb usb2: Manufacturer: Linux 5.8.0-0.bpo.2-arm64 xhci-hcd
+[    2.582260] usb usb2: SerialNumber: f2510000.usb3
+[    2.582452] hub 2-0:1.0: USB hub found
+[    2.582465] hub 2-0:1.0: 1 port detected
+[    2.588175] ahci f4540000.sata: supply phy not found, using dummy regulator
+[    2.605637] mvpp2 f4000000.ethernet: using 8 per-cpu buffers
+[    2.611378] platform f4540000.sata:sata-port@0: supply target not found, using dummy regulator
+[    2.612262] mmc1: SDHCI controller on f2780000.sdhci [f2780000.sdhci] using ADMA 64-bit
+[    2.639300] bridge: filtering via arp/ip/ip6tables is no longer available by default. Update your scripts to load br_netfilter if you need this.
+[    2.643249] platform f4540000.sata:sata-port@1: supply target not found, using dummy regulator
+[    2.672494] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    2.791471] mmc0: switch to bus width 8 failed
+[    2.796147] mmc0: new high speed MMC card at address 0001
+[    2.801950] mmcblk0: mmc0:0001 8GTF4R 7.28 GiB 
+[    2.806665] mmcblk0boot0: mmc0:0001 8GTF4R partition 1 4.00 MiB
+[    2.812902] mmcblk0boot1: mmc0:0001 8GTF4R partition 2 4.00 MiB
+[    2.818959] mmcblk0rpmb: mmc0:0001 8GTF4R partition 3 512 KiB, chardev (245:0)
+[    2.825015] libphy: mdio: probed
+[    2.832547]  mmcblk0: p1 p2
+[    2.897308] random: fast init done
+[    3.480299] armada8k-pcie f2600000.pcie: Phy link never came up
+[    3.486263] armada8k-pcie f2600000.pcie: Link not up after reconfiguration
+[    3.493287] armada8k-pcie f2600000.pcie: PCI host bridge to bus 0000:00
+[    3.499943] pci_bus 0000:00: root bus resource [bus 00-ff]
+[    3.505457] pci_bus 0000:00: root bus resource [mem 0xf6000000-0xf6efffff]
+[    3.512377] pci 0000:00:00.0: [11ab:0110] type 01 class 0x060400
+[    3.518428] pci 0000:00:00.0: reg 0x10: [mem 0x00000000-0x000fffff]
+[    3.524774] pci 0000:00:00.0: supports D1 D2
+[    3.529066] pci 0000:00:00.0: PME# supported from D0 D1 D3hot
+[    3.536471] pci 0000:00:00.0: BAR 0: assigned [mem 0xf6000000-0xf60fffff]
+[    3.543302] pci 0000:00:00.0: PCI bridge to [bus 01-ff]
+[    3.855987] pcieport 0000:00:00.0: PME: Signaling with IRQ 29
+[    3.862071] pcieport 0000:00:00.0: AER: enabled with IRQ 29
+[    3.881421] xhci-hcd f4500000.usb3: xHCI Host Controller
+[    3.886786] xhci-hcd f4500000.usb3: new USB bus registered, assigned bus number 3
+[    3.894368] xhci-hcd f4500000.usb3: hcc params 0x0a000990 hci version 0x100 quirks 0x0000000000010010
+[    3.903660] xhci-hcd f4500000.usb3: irq 42, io mem 0xf4500000
+[    3.909574] usb usb3: New USB device found, idVendor=1d6b, idProduct=0002, bcdDevice= 5.08
+[    3.917887] usb usb3: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.925154] usb usb3: Product: xHCI Host Controller
+[    3.930057] usb usb3: Manufacturer: Linux 5.8.0-0.bpo.2-arm64 xhci-hcd
+[    3.936620] usb usb3: SerialNumber: f4500000.usb3
+[    3.941594] hub 3-0:1.0: USB hub found
+[    3.945395] hub 3-0:1.0: 1 port detected
+[    3.949500] xhci-hcd f4500000.usb3: xHCI Host Controller
+[    3.954861] xhci-hcd f4500000.usb3: new USB bus registered, assigned bus number 4
+[    3.962389] xhci-hcd f4500000.usb3: Host supports USB 3.0 SuperSpeed
+[    3.968805] usb usb4: We don't know the algorithms for LPM for this host, disabling LPM.
+[    3.976985] usb usb4: New USB device found, idVendor=1d6b, idProduct=0003, bcdDevice= 5.08
+[    3.985289] usb usb4: New USB device strings: Mfr=3, Product=2, SerialNumber=1
+[    3.992550] usb usb4: Product: xHCI Host Controller
+[    3.997451] usb usb4: Manufacturer: Linux 5.8.0-0.bpo.2-arm64 xhci-hcd
+[    4.004012] usb usb4: SerialNumber: f4500000.usb3
+[    4.008992] hub 4-0:1.0: USB hub found
+[    4.012786] hub 4-0:1.0: 1 port detected
+[    4.017756] mvpp2 f4000000.ethernet: using 8 per-cpu buffers
+[    4.039258] mvpp2 f4000000.ethernet eth1: Using random mac address 92:ab:c4:f2:2d:21
+[    4.049969] mvpp2 f4000000.ethernet eth2: Using random mac address d6:1e:32:61:fd:a2
+[    4.066437] ahci f4540000.sata: supply ahci not found, using dummy regulator
+[    4.073565] ahci f4540000.sata: supply phy not found, using dummy regulator
+[    4.080614] platform f4540000.sata:sata-port@0: supply target not found, using dummy regulator
+[    4.089299] platform f4540000.sata:sata-port@1: supply target not found, using dummy regulator
+[    4.099094] ahci f4540000.sata: masking port_map 0x3 -> 0x3
+[    4.104734] ahci f4540000.sata: AHCI 0001.0000 32 slots 2 ports 6 Gbps 0x3 impl platform mode
+[    4.113302] ahci f4540000.sata: flags: 64bit ncq sntf led only pmp fbs pio slum part sxs 
+[    4.122122] scsi host0: ahci
+[    4.125299] scsi host1: ahci
+[    4.128326] ata1: SATA max UDMA/133 mmio [mem 0xf4540000-0xf456ffff] port 0x100 irq 53
+[    4.136290] ata2: SATA max UDMA/133 mmio [mem 0xf4540000-0xf456ffff] port 0x180 irq 53
+[    4.146690] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.207087] libphy: mdio: probed
+[    4.252519] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.308879] libphy: mdio: probed
+[    4.351212] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.405043] libphy: mdio: probed
+[    4.447454] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.458452] ata2: SATA link down (SStatus 0 SControl 300)
+[    4.463908] ata1: SATA link down (SStatus 0 SControl 300)
+[    4.504825] libphy: mdio: probed
+[    4.546985] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.604887] libphy: mdio: probed
+[    4.647077] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.704891] libphy: mdio: probed
+[    4.747064] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.804895] libphy: mdio: probed
+[    4.847222] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    4.904890] libphy: mdio: probed
+[    4.946973] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.004901] libphy: mdio: probed
+[    5.047223] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.104890] libphy: mdio: probed
+[    5.147097] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.204888] libphy: mdio: probed
+[    5.246968] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.304892] libphy: mdio: probed
+[    5.347160] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.404894] libphy: mdio: probed
+[    5.447063] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.504879] libphy: mdio: probed
+[    5.547039] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.604902] libphy: mdio: probed
+[    5.647151] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.704893] libphy: mdio: probed
+[    5.747213] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.804892] libphy: mdio: probed
+[    5.847153] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    5.904900] libphy: mdio: probed
+[    5.947132] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.004896] libphy: mdio: probed
+[    6.047016] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.104877] libphy: mdio: probed
+[    6.147177] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.204893] libphy: mdio: probed
+[    6.247181] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.304890] libphy: mdio: probed
+[    6.347243] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.404879] libphy: mdio: probed
+[    6.447123] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.504878] libphy: mdio: probed
+[    6.546979] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.604886] libphy: mdio: probed
+[    6.647085] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.704899] libphy: mdio: probed
+[    6.747236] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.804897] libphy: mdio: probed
+[    6.847220] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    6.904892] libphy: mdio: probed
+[    6.947061] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.007414] libphy: mdio: probed
+[    7.049624] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.108889] libphy: mdio: probed
+[    7.151000] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.211359] libphy: mdio: probed
+[    7.253678] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.312888] libphy: mdio: probed
+[    7.355043] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.415455] libphy: mdio: probed
+[    7.457644] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.516880] libphy: mdio: probed
+[    7.558920] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.616883] libphy: mdio: probed
+[    7.659306] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.716882] libphy: mdio: probed
+[    7.758958] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.816889] libphy: mdio: probed
+[    7.858963] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    7.916879] libphy: mdio: probed
+[    7.959227] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.016897] libphy: mdio: probed
+[    8.058997] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.116896] libphy: mdio: probed
+[    8.159056] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.216883] libphy: mdio: probed
+[    8.258930] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.319309] libphy: mdio: probed
+[    8.361587] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.420887] libphy: mdio: probed
+[    8.463288] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.520821] libphy: mdio: probed
+[    8.563179] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.620905] libphy: mdio: probed
+[    8.663447] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.720894] libphy: mdio: probed
+[    8.763273] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.820896] libphy: mdio: probed
+[    8.863369] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    8.920875] libphy: mdio: probed
+[    8.963279] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.020896] libphy: mdio: probed
+[    9.063305] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.120876] libphy: mdio: probed
+[    9.163261] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.220883] libphy: mdio: probed
+[    9.263179] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.320884] libphy: mdio: probed
+[    9.363254] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.420810] libphy: mdio: probed
+[    9.463054] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.520873] libphy: mdio: probed
+[    9.563076] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.620897] libphy: mdio: probed
+[    9.663060] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.720887] libphy: mdio: probed
+[    9.763335] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.820884] libphy: mdio: probed
+[    9.863485] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[    9.920898] libphy: mdio: probed
+[    9.963219] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.020887] libphy: mdio: probed
+[   10.063274] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.120883] libphy: mdio: probed
+[   10.163050] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.220872] libphy: mdio: probed
+[   10.263141] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.320886] libphy: mdio: probed
+[   10.363226] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.420871] libphy: mdio: probed
+[   10.463052] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.520885] libphy: mdio: probed
+[   10.563211] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.620883] libphy: mdio: probed
+[   10.663413] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.720874] libphy: mdio: probed
+[   10.763148] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.820887] libphy: mdio: probed
+[   10.863282] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   10.920894] libphy: mdio: probed
+[   10.963183] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.020808] libphy: mdio: probed
+[   11.063297] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.120890] libphy: mdio: probed
+[   11.163265] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.220898] libphy: mdio: probed
+[   11.263360] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.320873] libphy: mdio: probed
+[   11.363184] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.420878] libphy: mdio: probed
+[   11.463156] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.520879] libphy: mdio: probed
+[   11.563339] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.620877] libphy: mdio: probed
+[   11.663141] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.720881] libphy: mdio: probed
+[   11.763273] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.820835] libphy: mdio: probed
+[   11.863217] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   11.920867] libphy: mdio: probed
+[   11.963222] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.020872] libphy: mdio: probed
+[   12.063216] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.120827] libphy: mdio: probed
+[   12.163192] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.220879] libphy: mdio: probed
+[   12.263268] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.320881] libphy: mdio: probed
+[   12.363175] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.420888] libphy: mdio: probed
+[   12.463060] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.520866] libphy: mdio: probed
+[   12.563056] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.620874] libphy: mdio: probed
+[   12.663388] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.720884] libphy: mdio: probed
+[   12.763393] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.820884] libphy: mdio: probed
+[   12.863226] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   12.920878] libphy: mdio: probed
+[   12.963301] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   13.020867] libphy: mdio: probed
+[   13.063122] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   13.121207] libphy: mdio: probed
+[   13.167054] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   13.224896] libphy: mdio: probed
+[   13.230270] F2FS-fs (mmcblk0p1): Found nat_bits in checkpoint
+[   13.257789] F2FS-fs (mmcblk0p1): recover fsync data on readonly fs
+[   13.265494] F2FS-fs (mmcblk0p1): Mounted with checkpoint version = 679743c0
+[   13.300492] mv88e6085 f412a200.mdio-mii:04: switch 0x3400 detected: Marvell 88E6141, revision 0
+[   13.360897] libphy: mdio: probed
+[   13.362020] Not activating Mandatory Access Control as /sbin/tomoyo-init does not exist.
+[   13.883729] systemd[1]: System time before build time, advancing clock.
+[   13.900037] systemd[1]: Inserted module 'autofs4'
+[   13.949713] systemd[1]: systemd 241 running in system mode. (+PAM +AUDIT +SELINUX +IMA +APPARMOR +SMACK +SYSVINIT +UTMP +LIBCRYPTSETUP +GCRYPT +GNUTLS +ACL +XZ +LZ4 +SECCOMP +BLKID +ELFUTILS +KMOD -IDN2 +IDN -PCRE2 default-hierarchy=hybrid)
+[   13.971445] systemd[1]: Detected architecture arm64.
+[   14.020735] systemd[1]: Set hostname to <clearfog>.
+[   14.263862] random: systemd: uninitialized urandom read (16 bytes read)
+[   14.273126] random: systemd: uninitialized urandom read (16 bytes read)
+[   14.280014] systemd[1]: Set up automount Arbitrary Executable File Formats File System Automount Point.
+[   14.308288] random: systemd: uninitialized urandom read (16 bytes read)
+[   14.316258] systemd[1]: Created slice system-serial\x2dgetty.slice.
+[   14.317715] mv88e6085 f412a200.mdio-mii:04: nonfatal error -95 setting MTU on port 1
+[   14.333345] mv88e6085 f412a200.mdio-mii:04 lan2 (uninitialized): PHY [!cp1!config-space@f4000000!mdio@12a200!switch0@4!mdio:11] driver [Marvell 88E6390] (irq=64)
+[   14.351744] mv88e6085 f412a200.mdio-mii:04: nonfatal error -95 setting MTU on port 2
+[   14.362519] mv88e6085 f412a200.mdio-mii:04 lan1 (uninitialized): PHY [!cp1!config-space@f4000000!mdio@12a200!switch0@4!mdio:12] driver [Marvell 88E6390] (irq=65)
+[   14.366614] systemd[1]: Listening on Network Service Netlink Socket.
+[   14.379590] mv88e6085 f412a200.mdio-mii:04: nonfatal error -95 setting MTU on port 3
+[   14.394182] mv88e6085 f412a200.mdio-mii:04 lan4 (uninitialized): PHY [!cp1!config-space@f4000000!mdio@12a200!switch0@4!mdio:13] driver [Marvell 88E6390] (irq=66)
+[   14.412483] mv88e6085 f412a200.mdio-mii:04: nonfatal error -95 setting MTU on port 4
+[   14.420983] systemd[1]: Created slice User and Session Slice.
+[   14.424178] mv88e6085 f412a200.mdio-mii:04 lan3 (uninitialized): PHY [!cp1!config-space@f4000000!mdio@12a200!switch0@4!mdio:14] driver [Marvell 88E6390] (irq=67)
+[   14.452236] mv88e6085 f412a200.mdio-mii:04: configuring for inband/2500base-x link mode
+[   14.466674] systemd[1]: Listening on Journal Audit Socket.
+[   14.486606] mvpp2 f4000000.ethernet: all ports have a low MTU, switching to per-cpu buffers
+[   14.495001] ------------[ cut here ]------------
+[   14.495594] systemd[1]: Created slice system-systemd\x2dfsck.slice.
+[   14.499642] Pool does not have so many bufs pool(0) bufs(2064)
+[   14.499688] WARNING: CPU: 2 PID: 35 at drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c:449 mvpp2_bm_bufs_free+0x1a4/0x1c0 [mvpp2]
+[   14.523512] Modules linked in: efivarfs ip_tables x_tables autofs4 tag_edsa f2fs crc32_generic ext4 crc16 mbcache jbd2 crc32c_generic mv88e6xxx dsa_core bridge stp llc ahci_platform libahci_platform xhci_plat_hcd libahci xhci_hcd marvell sdhci_xenon_driver libata sfp mdio_i2c sdhci_pltfm usbcore fixed mvmdio mvpp2 phylink i2c_mv64xxx of_mdio fixed_phy scsi_mod gpio_keys sdhci usb_common libphy phy_mvebu_cp110_comphy rtc_armada38x
+[   14.561752] CPU: 2 PID: 35 Comm: kworker/2:1 Not tainted 5.8.0-0.bpo.2-arm64 #1 Debian 5.8.10-1~bpo10+1
+[   14.571185] Hardware name: Unknown Unknown/Unknown, BIOS 2020.10 10/11/2020
+[   14.578184] Workqueue: events deferred_probe_work_func
+[   14.584815] pstate: 60000005 (nZCv daif -PAN -UAO BTYPE=--)
+[   14.591804] pc : mvpp2_bm_bufs_free+0x1a4/0x1c0 [mvpp2]
+[   14.598442] lr : mvpp2_bm_bufs_free+0x1a4/0x1c0 [mvpp2]
+[   14.605079] sp : ffff8000118eb810
+[   14.609538] x29: ffff8000118eb810 x28: ffff000133646e80 
+[   14.609715] systemd[1]: Listening on initctl Compatibility Named Pipe.
+[   14.614872] x27: ffff000133647000 x26: ffff000133f2a510 
+[   14.614874] x25: 0000000000000810 x24: ffff00013a51a810 
+[   14.614876] x23: 0000000000000008 x22: ffff8000114d9988 
+[   14.614878] x21: ffff000133f48c80 x20: ffff000133f2a480 
+[   14.614880] x19: ffff000133f48c80 x18: 0000000000000001 
+[   14.614881] x17: 0000000000000001 x16: 0000000000000019 
+[   14.614883] x15: ffffffffffffffff x14: ffff8000114d9988 
+[   14.614886] x13: 0000000000000000 x12: ffff8000116b4000 
+[   14.664092] x11: ffff800011501000 x10: ffff8000116b4008 
+[   14.664094] x9 : ffff800010279d18 x8 : ffff8000116c29a4 
+[   14.664096] x7 : 0000000000000000 x6 : 00000000a64c544f 
+[   14.664100] x5 : 00ffffffffffffff x4 : 0000000000000000 
+[   14.685428] x3 : 0000000000000000 x2 : 00000000ffffffff 
+[   14.690847] x1 : 3eeb9895f3c26e00 x0 : 0000000000000000 
+[   14.696181] Call trace:
+[   14.700033]  mvpp2_bm_bufs_free+0x1a4/0x1c0 [mvpp2]
+[   14.705188]  mvpp2_bm_pool_destroy+0x48/0xe8 [mvpp2]
+[   14.711566]  mvpp2_bm_switch_buffers+0xc4/0x150 [mvpp2]
+[   14.718204]  mvpp2_change_mtu+0xfc/0x4f8 [mvpp2]
+[   14.724233]  dev_set_mtu_ext+0xdc/0x1b0
+[   14.729213]  dev_set_mtu+0x48/0xa8
+[   14.732631]  dsa_master_setup+0x3c/0x1b0 [dsa_core]
+[   14.732634]  dsa_register_switch+0x894/0xc38 [dsa_core]
+[   14.732641]  mv88e6xxx_probe+0x714/0x730 [mv88e6xxx]
+[   14.747767]  mdio_probe+0x3c/0x90 [libphy]
+[   14.751967]  really_probe+0xe4/0x448
+[   14.756947]  driver_probe_device+0xfc/0x168
+[   14.761231]  __device_attach_driver+0x94/0x120
+[   14.765863]  bus_for_each_drv+0x84/0xd8
+[   14.771107]  __device_attach+0xf0/0x170
+[   14.776349]  device_initial_probe+0x1c/0x28
+[   14.781941]  bus_probe_device+0xa4/0xb0
+[   14.786313]  deferred_probe_work_func+0xa0/0xf0
+[   14.790868]  process_one_work+0x1bc/0x458
+[   14.790872]  worker_thread+0x150/0x4f0
+[   14.798662]  kthread+0x12c/0x130
+[   14.801904]  ret_from_fork+0x10/0x30
+[   14.805493] ---[ end trace a61544ae2700bfa9 ]---
+[   14.812601] ------------[ cut here ]------------
+[   14.817645] cannot free all buffers in pool 0, buf_num left 0
+[   14.824830] WARNING: CPU: 2 PID: 35 at drivers/net/ethernet/marvell/mvpp2/mvpp2_main.c:506 mvpp2_bm_pool_destroy+0xcc/0xe8 [mvpp2]
+[   14.837982] Modules linked in: efivarfs ip_tables x_tables autofs4 tag_edsa f2fs crc32_generic ext4 crc16 mbcache jbd2 crc32c_generic mv88e6xxx dsa_core bridge stp llc ahci_platform libahci_platform xhci_plat_hcd libahci xhci_hcd marvell sdhci_xenon_driver libata sfp mdio_i2c sdhci_pltfm usbcore fixed mvmdio mvpp2 phylink i2c_mv64xxx of_mdio fixed_phy scsi_mod gpio_keys sdhci usb_common libphy phy_mvebu_cp110_comphy rtc_armada38x
+[   14.876456] CPU: 2 PID: 35 Comm: kworker/2:1 Tainted: G        W         5.8.0-0.bpo.2-arm64 #1 Debian 5.8.10-1~bpo10+1
+[   14.887285] Hardware name: Unknown Unknown/Unknown, BIOS 2020.10 10/11/2020
+[   14.887290] Workqueue: events deferred_probe_work_func
+[   14.887295] pstate: 60000005 (nZCv daif -PAN -UAO BTYPE=--)
+[   14.905038] pc : mvpp2_bm_pool_destroy+0xcc/0xe8 [mvpp2]
+[   14.910373] lr : mvpp2_bm_pool_destroy+0xcc/0xe8 [mvpp2]
+[   14.915788] sp : ffff8000118eb870
+[   14.920507] x29: ffff8000118eb870 x28: ffff000133646e80 
+[   14.926099] x27: ffff000133647000 x26: ffff000133f2a510 
+[   14.931433] x25: 0000000000000038 x24: 0000000000000001 
+[   14.938158] x23: 0000000000000008 x22: ffff8000114d9988 
+[   14.944883] x21: ffff00013a51a810 x20: ffff000133f2a480 
+[   14.950476] x19: ffff000133f48c80 x18: 0000000000000010 
+[   14.955980] x17: 0000000000000001 x16: 0000000000000019 
+[   14.961315] x15: ffffffffffffffff x14: 0720072007200720 
+[   14.961317] x13: 0720072007200720 x12: 0720072007200720 
+[   14.961318] x11: 0720072007200720 x10: 0730072007740766 
+[   14.961322] x9 : ffff800010279d18 x8 : 0775076e075f0766 
+[   14.982650] x7 : 0000000000000260 x6 : ffff00013ac39f00 
+[   14.988070] x5 : ffff800010760ab8 x4 : 0000000000000000 
+[   14.993403] x3 : 0000000000000000 x2 : 00000000ffffffff 
+[   15.000128] x1 : 3eeb9895f3c26e00 x0 : 0000000000000000 
+[   15.005722] Call trace:
+[   15.008179]  mvpp2_bm_pool_destroy+0xcc/0xe8 [mvpp2]
+[   15.014556]  mvpp2_bm_switch_buffers+0xc4/0x150 [mvpp2]
+[   15.021196]  mvpp2_change_mtu+0xfc/0x4f8 [mvpp2]
+[   15.027224]  dev_set_mtu_ext+0xdc/0x1b0
+[   15.032466]  dev_set_mtu+0x48/0xa8
+[   15.036752]  dsa_master_setup+0x3c/0x1b0 [dsa_core]
+[   15.041652]  dsa_register_switch+0x894/0xc38 [dsa_core]
+[   15.041657]  mv88e6xxx_probe+0x714/0x730 [mv88e6xxx]
+[   15.041663]  mdio_probe+0x3c/0x90 [libphy]
+[   15.056001]  really_probe+0xe4/0x448
+[   15.059590]  driver_probe_device+0xfc/0x168
+[   15.063875]  __device_attach_driver+0x94/0x120
+[   15.068338]  bus_for_each_drv+0x84/0xd8
+[   15.073580]  __device_attach+0xf0/0x170
+[   15.077690]  device_initial_probe+0x1c/0x28
+[   15.081890]  bus_probe_device+0xa4/0xb0
+[   15.087134]  deferred_probe_work_func+0xa0/0xf0
+[   15.093076]  process_one_work+0x1bc/0x458
+[   15.097359]  worker_thread+0x150/0x4f0
+[   15.101122]  kthread+0x12c/0x130
+[   15.104363]  ret_from_fork+0x10/0x30
+[   15.104364] ---[ end trace a61544ae2700bfaa ]---
+[   15.116385] mvpp2 f4000000.ethernet: using 8 per-cpu buffers
+[   15.129282] DSA: tree 0 setup
+[   19.436691] systemd-journald[1155]: Received request to flush runtime journal from PID 1
+[   19.660173] random: crng init done
+[   19.663602] random: 7 urandom warning(s) missed due to ratelimiting
+[   19.747091] sbsa-gwdt f0610000.watchdog: Initialized with 10s timeout @ 25000000 Hz, action=0.
+[   19.788685] debugfs: Directory 'dummy-system-controller@400000' with parent 'regmap' already present!
+[   19.805657] omap_rng f2760000.trng: Random Number Generator ver. 203b34c
+[   19.812766] omap_rng f4760000.trng: Random Number Generator ver. 203b34c
+[   19.921562] cryptd: max_cpu_qlen set to 1000
+[   20.396312] EXT4-fs (mmcblk0p2): mounted filesystem with ordered data mode. Opts: discard
+[   20.404566] ext4 filesystem being mounted at /boot supports timestamps until 2038 (0x7fffffff)
+[  289.956694] mvpp2 f4000000.ethernet eth2: configuring for inband/2500base-x link mode
+[  289.983110] mv88e6085 f412a200.mdio-mii:04 lan4: configuring for phy/ link mode
+[  289.996145] mvpp2 f4000000.ethernet eth2: Link is Up - 2.5Gbps/Full - flow control rx/tx
+[  290.005680] IPv6: ADDRCONF(NETDEV_CHANGE): eth2: link becomes ready
+[  290.024848] mv88e6085 f412a200.mdio-mii:04: Link is Up - 2.5Gbps/Full - flow control rx/tx
+[  292.212369] mv88e6085 f412a200.mdio-mii:04 lan4: Link is Up - 10Mbps/Full - flow control rx/tx
+[  292.221044] IPv6: ADDRCONF(NETDEV_CHANGE): lan4: link becomes ready
+[  292.418508] mv88e6085 f412a200.mdio-mii:04 lan4: Link is Down
+[  295.540369] mv88e6085 f412a200.mdio-mii:04 lan4: Link is Up - 1Gbps/Full - flow control rx/tx

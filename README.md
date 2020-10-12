@@ -4,8 +4,13 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
 ## TODO
 
- * `mmc write` explodes with `"Synchronous Abort" handler`
- * `usb start` with a USB3 key (todo, test USB2 works) explodes with `BUG at drivers/usb/host/xhci-ring.c abort_td()`
+ * do something with the [`dmesg` output](dmesg)
+ * configure u-boot to automatically boot the on disk image
+ * document kernel upgrades
+     * rebuild the symlinks in /boot and copy in the new DTB
+ * u-boot problems
+     * `mmc write` explodes with `"Synchronous Abort" handler`
+     * `usb start` with a USB3 key (todo, test USB2 works) explodes with `BUG at drivers/usb/host/xhci-ring.c abort_td()`
 
 ## Related Links
 
@@ -75,38 +80,6 @@ There are problems if you have the enclosure:
  * meanwhile the thermal paste that *was* on the SoC is mostly gone, so you order and wait for some [thermal pads (20mm width x 0.5mm thick](https://www.amazon.co.uk/gp/product/B07YWTQVFV) (or thermal paste) to be delivered as last time I needed any was ten (10) years ago
 
 Fortunate, after all this nonsense (bet those non-enclosure users are smugly smiling) you can run the ribbon cable through one of the open holes on the side of the unit (or the rear if you prefer).
-
-## u-boot
-
-You do not need to update u-boot, but if you wish to, I have detailed how to do this for you.
-
-We use a slightly different approach that what is [outlined by SolidRun on their website](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/#from-u-boot):
-
- * using a USB stick for a 1.5MB image seems excessive
- * this approach covers what you need to do even when your unit is bricked
- * no need to use `download-serial.sh` when u-boot already has `mrvl_uart.sh` which is easier to get working
-
-Start by building the firmware, downloading ~200MB plus roughly 5 mins:
-
-    make flash-image.bin
-
-We now upload the u-boot image via the serial port by running the following (it will walk you through the process):
-
-    ./u-boot/tools/mrvl_uart.sh /dev/ttyUSB0 flash-image.bin
-
-**N.B.** I was not able to get the accelerated upload functionality working
-
-After the transfer you should see u-boot running and you should interrupt the boot sequence to break out to the prompt.
-
-We know now this image works, so it is time to burn it to the SPI flash by typing at the u-boot prompt:
-
-    loadx $ramdisk_addr_r
-
-Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin` from the project directory. Once complete you will be able to burn your new u-boot image to flash with:
-
-    sf probe
-    sf erase 0 0x800000
-    sf write $ramdisk_addr_r 0 0x$filesize
 
 ## rootfs
 
@@ -201,7 +174,39 @@ The eMMC image has now been burnt and if you restart the system, from u-boot you
 
 The stock Debian kernel and initramfs should now boot and your rootfs mount.
 
-...TODO fix u-boot to boot automatically
+...
+
+## u-boot
+
+You do not need to update u-boot, but if you wish to, I have detailed how to do this for you.
+
+We use a slightly different approach that what is [outlined by SolidRun on their website](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/#from-u-boot):
+
+ * using a USB stick for a 1.5MB image seems excessive
+ * this approach covers what you need to do even when your unit is bricked
+ * no need to use `download-serial.sh` when u-boot already has `mrvl_uart.sh` which is easier to get working
+
+Start by building the firmware, downloading ~200MB plus roughly 5 mins:
+
+    make flash-image.bin
+
+We now upload the u-boot image via the serial port by running the following (it will walk you through the process):
+
+    ./u-boot/tools/mrvl_uart.sh /dev/ttyUSB0 flash-image.bin
+
+**N.B.** I was not able to get the accelerated upload functionality working
+
+After the transfer you should see u-boot running and you should interrupt the boot sequence to break out to the prompt.
+
+We know now this image works, so it is time to burn it to the SPI flash by typing at the u-boot prompt:
+
+    loadx $ramdisk_addr_r
+
+Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin` from the project directory. Once complete you will be able to burn your new u-boot image to flash with:
+
+    sf probe
+    sf erase 0 0x800000
+    sf write $ramdisk_addr_r 0 0x$filesize
 
 # Usage
 
