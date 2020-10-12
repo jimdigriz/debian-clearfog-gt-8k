@@ -265,7 +265,7 @@ Running a xDSL PPPoE connection over the SFP is straight forward:
 
     root@clearfog:~# ip link add link eth0 vlan101 type vlan id 101
     root@clearfog:~# ip link set vlan101 up
-    root@clearfog:~# pppd plugin rp-pppoe.so user USERNAME password PASSWORD noauth nodetach vlan101
+    root@clearfog:~# pppd plugin rp-pppoe.so user USERNAME password PASSWORD nodetach vlan101
     Plugin rp-pppoe.so loaded.
     PPP session is 5876
     Connected to 11:22:33:44:55:66 via interface vlan101
