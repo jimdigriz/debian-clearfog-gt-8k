@@ -6,6 +6,7 @@ iproute2
 irqbalance
 mmc-utils
 netbase
+rng-tools5
 systemd-sysv
 usbutils
 watchdog
