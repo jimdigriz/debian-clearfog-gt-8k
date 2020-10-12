@@ -89,7 +89,7 @@ As the eMMC image is ~7.3GiB (aka 8GB) we do not want to be uploading this over 
 
 **N.B.** USB was not an option for two reasons, firstly the size of the image and RAM available, but for me u-boot (v2020.10) crashes and reboots with the USB key I have.
 
-Instead we will upload via a NIC (at 7MiB/s) via u-boot over TFTP.
+Instead we will upload using the network via u-boot using TFTP.
 
 Start by building the images:
 
