@@ -47,7 +47,7 @@ Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project sh
 
     make
 
-**N.B.** you will be prompted to `sudo` up as parts of the build need to create devices, create mountpoints and read root owned files in the chroot
+**N.B.** you will be prompted to `sudo` up as parts of the build need to create devices, create mount points and read root owned files in the chroot
 
 **N.B.** the [kernel used is from Debian backports](https://packages.debian.org/buster-backports/linux-image-arm64) as [stable does not have](https://packages.debian.org/buster/linux-image-arm64) the [necessary fixes in it yet](https://developer.solid-run.com/knowledge-base/armada-8040-debian/#pure-debian-upstream)
 
@@ -57,7 +57,7 @@ Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project sh
 
 You need access to the unit via the serial port which is fortunately straight forward to get working as the [documentation is very clear](https://developer.solid-run.com/knowledge-base/clearfog-gt-8k-getting-started/#connecting-a-usb-to-uart-adapter-to-clearfog-gt-8k).
 
-Connection is settings are 115200n8.
+Connection settings are 115200n8.
 
 ### IDC
 
@@ -85,7 +85,7 @@ Fortunate, after all this nonsense (bet those non-enclosure users are smugly smi
 
 As the eMMC image is ~7.3GiB (aka 8GB) we do not want to be uploading this over the serial port. This would not work anyway as the whole image would need to fit uncompressed within the 4GiB RAM that is available to the unit which is not going to happen. The final nail in the coffin is that `mmc write` in u-boot goes at a blazing ~32kiB/sec so really do not bother trying.
 
-**N.B.** USB was not an option for two reasons, firstly the size of the image and RAM avaliable, but for me u-boot (v2020.10) crashes and reboots with the USB key I have.
+**N.B.** USB was not an option for two reasons, firstly the size of the image and RAM available, but for me u-boot (v2020.10) crashes and reboots with the USB key I have.
 
 Instead we will upload via a NIC (at 7MiB/s) via u-boot over TFTP.
 
@@ -113,7 +113,7 @@ Hook up the network into one of the LAN ports and run from u-boot:
 
 **N.B.** `fdt chosen` is setup to offer enough room for up to a 384MiB (`0x20000000 - ${ramdisk_addr_r}`) initramfs
 
-You should see a login prompt after a while (username `root` with no password) and now should typ
+You should see a login prompt after a while (username `root` with no password) and now should type:
 
     ip link set dev eth2 up
     ip link set dev lan4 up
