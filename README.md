@@ -6,7 +6,7 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
  * do something with the [`dmesg` output](dmesg)
  * update main pre-flight section to match Debian instructions
- * configure u-boot to automatically boot the on disk image
+ * configure u-boot to automatically boot the kernel and initramfs on the eMMC
  * document kernel upgrades
      * rebuild the symlinks in /boot and copy in the new DTB
  * u-boot problems
