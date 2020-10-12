@@ -9,7 +9,7 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
  * configure u-boot to automatically boot the kernel and initramfs on the eMMC
  * document kernel upgrades
      * rebuild the symlinks in /boot and copy in the new DTB
- * u-boot problems
+ * u-boot (v2020.10) problems
      * `mmc write` explodes with `"Synchronous Abort" handler`
      * `usb start` with a USB3 key (todo, test USB2 works) explodes with `BUG at drivers/usb/host/xhci-ring.c abort_td()`
 
@@ -182,9 +182,10 @@ You now can boot into your stock Debian kernel and initramfs and use your new ro
 
 You do not need to update u-boot, but if you wish to, I have detailed how to do this for you.
 
-We use a slightly different approach that what is [outlined by SolidRun on their website](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/#from-u-boot):
+A slightly different approach is used compared to what is [outlined by SolidRun on their website](https://developer.solid-run.com/knowledge-base/armada-8040-machiatobin-u-boot-and-atf/#from-u-boot):
 
  * using a USB stick for a 1.5MB image seems excessive
+     * USB does not work under u-boot for me anyway
  * this approach covers what you need to do even when your unit is bricked
  * no need to use `download-serial.sh` when supplied with u-boot is `mrvl_uart.sh` which I found easier to get working
 
