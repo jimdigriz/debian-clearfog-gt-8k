@@ -268,7 +268,7 @@ Now you can configure the `lanX` ports as usual:
 
 ### SFP
 
-Annoyingly my [Proscend 180-T VDSL2 SFP Modem](https://www.proscend.com/en/product/VDSL2-SFP-Modem-for-Telco/180-T.html) is ~3mm too high to fit in the SFP slot...so I am probably going to have to get out my file and shave down the gap in the chassis a little.
+Annoyingly my [Proscend 180-T VDSL2 SFP Modem](https://www.proscend.com/en/product/VDSL2-SFP-Modem-for-Telco/180-T.html) is ~3mm too high to fit in the SFP slot...so I am probably going to have to get out my file and open up the gap in the chassis a little.
 
 #### PPPoE
 
