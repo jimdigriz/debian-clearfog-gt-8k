@@ -62,7 +62,7 @@ Connection settings are 115200n8.
 
 ### IDC
 
-When using an IDC cable ([six way female IDC with jumper pins at the other end (POPESQ #A2559)](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)), orientate the red wire (wire 1) next to the marked arrow on the board next to the pins which points to the GND pin.
+When using an IDC cable ([six way female IDC with jumper pins at the other end, POPESQ #A2559](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)), orientate the red wire (wire 1) next to the marked arrow on the board next to the pins which points to the GND pin.
 
 When plugging it into your [(FTDI) USB to TTL cable jumper serial adapter](https://ftdi-uk.shop/collections/usb-cables-ttl), connect wire 1 to GND, wire 3 to RDX and wire 5 to TXD.
 
