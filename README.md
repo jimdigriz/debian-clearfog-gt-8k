@@ -52,12 +52,22 @@ Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project sh
 
 You need access to the unit via the serial port which is fortunately straight forward to get working as the [documentation is very clear](https://developer.solid-run.com/knowledge-base/clearfog-gt-8k-getting-started/#connecting-a-usb-to-uart-adapter-to-clearfog-gt-8k).
 
-The problem is if you have an enclosure as:
+Connection is settings are 115200n8.
+
+### IDC
+
+When using an IDC cable ([six way female IDC with jumper pins at the other end (POPESQ #A2559)](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)), orientate the red wire (wire 1) next to the marked arrow on the board next to the pins which points to the GND pin.
+
+When plugging it into your [(FTDI) USB to TTL cable jumper serial adapter](https://ftdi-uk.shop/collections/usb-cables-ttl), connect wire 1 to GND, wire 3 to RDX and wire 5 to TXD.
+
+### Enclosure
+
+There are problems if you have the enclosure:
 
  * you cannot reassemble the enclosure with the serial cable plugged in as typical breadboard jumpers are too tall
  * you think this is okay
  * ...until you notice the SoC is *very* hot as the chassis is used as the heat sink and is no longer attached!
- * you order a [six way female IDC with jumper pins at the other end (POPESQ #A2559)](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)
+ * you order yourself a female IDC with jumper pins thinking it looks like it will just fit
  * ...the plug is still too tall
  * you take a scalpel to the IDC to remove some of the height, now the lid fits
  * ...only to find that one of the chassis screw mounts is immediately next to the serial pins and now cannot fit into place as the IDC is slightly too wide and causes mis-alignment
@@ -248,3 +258,21 @@ Now you can configure the `lanX` ports as usual:
 ### SFP
 
 Annoyingly my [VDSL2 SFP Modem](https://www.proscend.com/en/product/VDSL2-SFP-Modem-for-Telco/180-T.html) is ~3mm too high to fit in the SFP slot...so I am probably going to have to cut into the chassis.
+
+#### PPPoE
+
+Running a xDSL PPPoE connection over the SFP is straight forward:
+
+    root@clearfog:~# ip link add link eth0 vlan101 type vlan id 101
+    root@clearfog:~# ip link set vlan101 up
+    root@clearfog:~# pppd plugin rp-pppoe.so user USERNAME password PASSWORD noauth nodetach vlan101
+    Plugin rp-pppoe.so loaded.
+    PPP session is 5876
+    Connected to 11:22:33:44:55:66 via interface vlan101
+    Using interface ppp0
+    Connect: ppp0 <--> vlan101
+    CHAP authentication succeeded
+    CHAP authentication succeeded
+    peer from calling number 11:22:33:44:55:66 authorized
+    local  IP address 198.51.100.1
+    remote IP address 198.51.100.0
