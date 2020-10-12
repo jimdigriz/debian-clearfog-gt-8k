@@ -73,7 +73,7 @@ emmc-image.bin: gpt.img boot.img rootfs.img
 	cp --sparse=always $< $@
 	dd bs=1M conv=notrunc,sparse seek=$(F2FS_SEGMENT_SIZE_MB) if=rootfs.img of=$@
 	dd bs=1M conv=notrunc,sparse seek=$$(($(F2FS_SEGMENT_SIZE_MB) + $(ROOT_IMG_SIZE_MB))) if=boot.img of=$@
-CLEAN += emmc-image.img
+CLEAN += emmc-image.bin
 
 gpt.img: boot.img
 	truncate -s $(EMMC_SIZE_MB)M $@
