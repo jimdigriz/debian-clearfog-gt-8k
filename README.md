@@ -31,6 +31,7 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
     sudo apt-get -y install --no-install-recommends \
         binfmt-support \
         debootstrap \
+        f2fs-tools \
         gcc-aarch64-linux-gnu \
         git \
         lrzsz \
