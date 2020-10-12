@@ -185,7 +185,7 @@ We use a slightly different approach that what is [outlined by SolidRun on their
 
  * using a USB stick for a 1.5MB image seems excessive
  * this approach covers what you need to do even when your unit is bricked
- * no need to use `download-serial.sh` when u-boot already has `mrvl_uart.sh` which is easier to get working
+ * no need to use `download-serial.sh` when supplied with u-boot is `mrvl_uart.sh` which I found easier to get working
 
 Start by building the firmware, downloading ~200MB plus roughly 5 mins:
 
