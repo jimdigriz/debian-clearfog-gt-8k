@@ -87,7 +87,7 @@ Fortunate, after all this nonsense (bet those non-enclosure users are smugly smi
 
 As the eMMC image is ~7.3GiB (aka 8GB) we do not want to be uploading this over the serial port. This would not work anyway as the whole image would need to fit uncompressed within the 4GiB RAM that is available to the unit which is not going to happen. The final nail in the coffin is that `mmc write` in u-boot goes at a blazing ~32kiB/sec so really do not bother trying.
 
-**N.B.** USB was not an option for two reasons, firstly the size of the image and RAM available, but for me u-boot (v2020.10) crashes and reboots with the USB key I have.
+**N.B.** USB was not an option for two reasons, firstly again due to the size of the image and RAM available, but that USB does not work under u-boot
 
 Instead we will upload using the network via u-boot using TFTP.
 
