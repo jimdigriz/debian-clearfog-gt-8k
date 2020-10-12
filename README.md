@@ -43,16 +43,6 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
     sudo systemctl stop tftpd-hpa
     sudo systemctl disable tftpd-hpa
 
-# Build
-
-Build the root filesystem, downloads ~100MB plus roughly 10 mins, the project should emit a single file `emmc-image.bin`.
-
-    make
-
-**N.B.** you will be prompted to `sudo` up as parts of the build need to create devices, create mount points and read root owned files in the chroot
-
-**N.B.** the [kernel used is from Debian backports](https://packages.debian.org/buster-backports/linux-image-arm64) as [stable does not have](https://packages.debian.org/buster/linux-image-arm64) the [necessary fixes in it yet](https://developer.solid-run.com/knowledge-base/armada-8040-debian/#pure-debian-upstream)
-
 # Deploy
 
 ## Serial Port
@@ -91,9 +81,13 @@ As the eMMC image is ~7.3GiB (aka 8GB) we do not want to be uploading this over 
 
 Instead we will upload using the network via u-boot using TFTP.
 
-Start by building the images:
+Start by building the rootfs and needed images using:
 
     make emmc-image.bin initramfs.cpio.gz
+
+**N.B.** you will be prompted to `sudo` up as parts of the build need to create devices, create mount points and read root owned files in the chroot
+
+**N.B.** the [kernel used is from Debian backports](https://packages.debian.org/buster-backports/linux-image-arm64) as [stable does not have](https://packages.debian.org/buster/linux-image-arm64) the [necessary fixes in it yet](https://developer.solid-run.com/knowledge-base/armada-8040-debian/#pure-debian-upstream)
 
 From another terminal and from the product directory run:
 
