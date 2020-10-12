@@ -5,6 +5,7 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 ## TODO
 
  * do something with the [`dmesg` output](dmesg)
+ * update main pre-flight section to match Debian instructions
  * configure u-boot to automatically boot the on disk image
  * document kernel upgrades
      * rebuild the symlinks in /boot and copy in the new DTB
@@ -163,6 +164,8 @@ The eMMC image has now been burnt and if you restart the system, from u-boot you
 
 **N.B.** root filesystem partition is formatted with [F2FS](https://en.wikipedia.org/wiki/F2FS) and is not readable to u-boot
 
+You now can boot into your stock Debian kernel and initramfs and use your new rootfs mount by typing:
+
     load mmc 0:2 $kernel_addr_r vmlinuz
     load mmc 0:2 $ramdisk_addr_r initrd.img
     load mmc 0:2 $fdt_addr_r marvell/armada-8040-clearfog-gt-8k.dtb
@@ -171,8 +174,6 @@ The eMMC image has now been burnt and if you restart the system, from u-boot you
     fdt chosen ${ramdisk_addr_r} 0x20000000
     setenv bootargs earlyprintk panic=10 root=/dev/mmcblk0p1 rootdelay=10 ro
     bootefi $kernel_addr_r $fdt_addr_r
-
-The stock Debian kernel and initramfs should now boot and your rootfs mount.
 
 ...
 
@@ -209,6 +210,8 @@ Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin`
     sf write $ramdisk_addr_r 0 0x$filesize
 
 # Usage
+
+Be aware of the follow:
 
  * there is no password for the `root` user, so you can log in trivially with the serial console
  * though `systemd-timesyncd` should automatically handle this for you, if you are too quick typing `apt-get update` you may find you need to fix up the current date time with `date -s 2019-09-25`
