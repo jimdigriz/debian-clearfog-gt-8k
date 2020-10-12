@@ -214,6 +214,7 @@ Now start the XMODEM transfer by using `Ctrl-A`+`S` and select `flash-image.bin`
 Be aware of the follow:
 
  * there is no password for the `root` user, so you can log in trivially with the serial console
+ * if you need to edit files before you are able to install packages you can use `busybox vi ...`
  * though `systemd-timesyncd` should automatically handle this for you, if you are too quick typing `apt-get update` you may find you need to fix up the current date time with `date -s 2019-09-25`
  * networking is configured through [`systemd-networkd`](https://wiki.archlinux.org/index.php/Systemd-networkd)
    * DHCP and IPv6 auto-configuration is setup for Ethernet
