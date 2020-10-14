@@ -71,7 +71,7 @@ There are problems if you have the enclosure:
  * you take the scalpel and shave off the clips on the side of the IDC, now everything fits
  * meanwhile the thermal paste that *was* on the SoC is mostly gone, so you order and wait for some [thermal pads (20mm width x 0.5mm thick)](https://www.amazon.co.uk/gp/product/B07YWTQVFV) to be delivered as last time I needed any was over a decade ago
 
-Fortunate, after all this nonsense (bet those non-enclosure users are smugly smiling) you can run the ribbon cable through one of the open holes on the side of the unit (or the rear if you prefer).
+Fortunately after all this nonsense (bet those non-enclosure users are smugly smiling) you can run the ribbon cable through one of the open holes on the side of the unit (or the rear if you prefer).
 
 ## rootfs
 
@@ -181,7 +181,7 @@ A slightly different approach is used compared to what is [outlined by SolidRun 
  * using a USB stick for a 1.5MB image seems excessive
      * USB does not work under u-boot for me anyway
  * this approach covers what you need to do even when your unit is bricked
- * no need to use `download-serial.sh` when supplied with u-boot is `mrvl_uart.sh` which I found easier to get working
+ * no need to use [`download-serial.sh`](https://github.com/SolidRun/u-boot-armada38x/blob/u-boot-2013.01-15t1-clearfog/download-serial.sh) when avaliable is [`mrvl_uart.sh`](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/tools/mrvl_uart.sh) supplied with u-boot which I found easier to get working
 
 Start by building the firmware, downloading ~200MB plus roughly 5 mins:
 
