@@ -1,7 +1,5 @@
 Build a [Debian 'bullseye' 11](https://www.debian.org/) image for the [SolidRun ClearFog GT 8k](https://www.solid-run.com/marvell-armada-family/clearfog-gt-8k/).
 
-**N.B.** this is a work-in-progress so not ready for public consumption; it is mostly a collection of unorganised notes so far
-
 ## TODO
 
  * do something with the [`dmesg` output](dmesg)
