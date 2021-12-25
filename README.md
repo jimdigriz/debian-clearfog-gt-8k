@@ -3,7 +3,6 @@ Build a [Debian 'bullseye' 11](https://www.debian.org/) image for the [SolidRun 
 ## TODO
 
  * do something with the [`dmesg` output](dmesg)
- * update main pre-flight section to match Debian instructions
  * document kernel upgrades
      * rebuild the symlinks in /boot and copy in the new DTB
  * u-boot (v2020.10) problems
