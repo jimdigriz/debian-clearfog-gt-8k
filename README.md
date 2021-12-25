@@ -1,4 +1,4 @@
-Build a [Debian 'bullseye' 11](https://www.debian.org/) image for the [SolidRun ClearFog GT 8k](https://www.solid-run.com/marvell-armada-family/clearfog-gt-8k/).
+Build a [Debian 'bullseye' 11](https://www.debian.org/) image for the [SolidRun ClearFog GT 8k](https://www.solid-run.com/arm-servers-networking-platforms/macchiatobin/#gt8k).
 
 ## TODO
 
