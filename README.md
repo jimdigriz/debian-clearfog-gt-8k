@@ -1,4 +1,4 @@
-Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun ClearFog GT 8k](https://www.solid-run.com/marvell-armada-family/clearfog-gt-8k/).
+Build a [Debian 'bullseye' 11](https://www.debian.org/) image for the [SolidRun ClearFog GT 8k](https://www.solid-run.com/marvell-armada-family/clearfog-gt-8k/).
 
 **N.B.** this is a work-in-progress so not ready for public consumption; it is mostly a collection of unorganised notes so far
 
@@ -6,7 +6,6 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
 
  * do something with the [`dmesg` output](dmesg)
  * update main pre-flight section to match Debian instructions
- * configure u-boot to automatically boot the kernel and initramfs on the eMMC
  * document kernel upgrades
      * rebuild the symlinks in /boot and copy in the new DTB
  * u-boot (v2020.10) problems
@@ -36,8 +35,6 @@ Build a [Debian 'buster' 10](https://www.debian.org/) image for the [SolidRun Cl
         git \
         lrzsz \
         minicom \
-        netcat-openbsd \
-        pv \
         qemu-user-static \
         tftpd-hpa
     sudo systemctl stop tftpd-hpa
@@ -55,7 +52,7 @@ Connection settings are 115200n8.
 
 When using an IDC cable ([six way female IDC with jumper pins at the other end, POPESQ #A2559](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)), orientate the red wire (wire 1) next to the marked arrow on the board next to the pins which points to the GND pin.
 
-When plugging it into your [(FTDI) USB to TTL cable jumper serial adapter](https://ftdi-uk.shop/collections/usb-cables-ttl), connect wire 1 to GND, wire 3 to RDX and wire 5 to TXD.
+When plugging it into your [(FTDI) USB to TTL cable jumper serial adapter](https://ftdi-uk.shop/collections/usb-cables-ttl), connect wire 1 (red) to GND, wire 3 to TDX and wire 5 to RXD.
 
 ### Enclosure
 
@@ -81,13 +78,11 @@ As the eMMC image is ~7.3GiB (aka 8GB) we do not want to be uploading this over 
 
 Instead we will upload using the network via u-boot using TFTP.
 
-Start by building the rootfs and needed images using:
+Start by building the rootfs and needed images using (you need 500MiB of space on an `exec,suid,dev` mountpoint located at `rootfs` in the project directory):
 
     make emmc-image.bin initramfs.cpio.gz
 
 **N.B.** you will be prompted to `sudo` up as parts of the build need to create devices, create mount points and read root owned files in the chroot
-
-**N.B.** the [kernel used is from Debian backports](https://packages.debian.org/buster-backports/linux-image-arm64) as [stable does not have](https://packages.debian.org/buster/linux-image-arm64) the [necessary fixes in it yet](https://developer.solid-run.com/knowledge-base/armada-8040-debian/#pure-debian-upstream)
 
 From another terminal and from the product directory run:
 
@@ -119,13 +114,11 @@ You should see a login prompt after a while (username `root` with no password) a
 
 You should now be able to ping across the link.
 
-Stop the TFTP server running in your other terminal and prepare `netcat` to do your file transfer:
-
-    pv emmc-image.bin | nc -l -p 1234 -w 1
+    busybox ping 192.0.2.1
 
 From your unit now run:
 
-    busybox nc 192.0.2.1 1234 | dd bs=1M of=/dev/mmcblk0 conv=fsync
+    busybox tftp -g -r emmc-image.bin -l /dev/mmcblk0 192.0.2.1
 
 The eMMC image has now been burnt and if you restart the system, from u-boot you should now see:
 
@@ -170,7 +163,13 @@ You now can boot into your stock Debian kernel and initramfs and use your new ro
     setenv bootargs earlyprintk panic=10 root=/dev/mmcblk0p1 rootdelay=10 ro
     bootefi $kernel_addr_r $fdt_addr_r
 
-...
+If everything works, you can set u-boot to autoboot this with:
+
+    setenv distro_bootcmd 'load mmc 0:2 $kernel_addr_r vmlinuz; load mmc 0:2 $ramdisk_addr_r initrd.img; load mmc 0:2 $fdt_addr_r marvell/armada-8040-clearfog-gt-8k.dtb; fdt addr $fdt_addr_r; fdt resize; fdt chosen ${ramdisk_addr_r} 0x20000000; setenv bootargs earlyprintk panic=10 root=/dev/mmcblk0p1 rootdelay=10 ro; bootefi $kernel_addr_r $fdt_addr_r'
+    saveenv
+    reset
+
+**N.B.** use single quotes!
 
 ## u-boot
 
@@ -262,11 +261,11 @@ Now you can configure the `lanX` ports as usual:
 
 ### SFP
 
-Annoyingly my [Proscend 180-T VDSL2 SFP Modem](https://www.proscend.com/en/product/VDSL2-SFP-Modem-for-Telco/180-T.html) is ~3mm too high to fit in the SFP slot...so I am probably going to have to get out my file and open up the gap in the chassis a little.
+Annoyingly my [Proscend 180-T VDSL2 SFP Modem](https://www.proscend.com/en/product/VDSL2-SFP-Modem-for-Telco/180-T.html) is ~3mm too high to fit in the SFP slot...instead I will have to plug it into my [Cisco Catalyst 3750-X](https://www.cisco.com/c/en/us/support/switches/catalyst-3750-x-series-switches/series.html) switch instead.
 
 #### PPPoE
 
-Running a xDSL PPPoE connection over the SFP is straight forward:
+Running a xDSL PPPoE connection over the SFP should be otherwise straight forward with something like
 
     root@clearfog:~# ip link add link eth0 vlan101 type vlan id 101
     root@clearfog:~# ip link set vlan101 up
