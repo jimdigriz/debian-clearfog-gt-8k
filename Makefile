@@ -117,11 +117,17 @@ rootfs/.stamp: packages | umount
 		--variant=minbase \
 		$(RELEASE) $(@D) $(MIRROR)
 	sudo chroot $(@D) /debootstrap/debootstrap --second-stage
-	sudo chroot $(@D) apt-get clean
-	sudo find $(@D)/var/lib/apt/lists -type f -delete
 	printf "/dev/mmcblk0p1 / f2fs defaults,rw 0 1\n/dev/mmcblk0p2 /boot ext4 defaults,rw,discard 0 2\n" \
 		| sudo chroot $(@D) tee /etc/fstab >/dev/null
+	echo deb $(MIRROR) $(RELEASE)-backports main \
+		| sudo chroot $(@D) tee /etc/apt/sources.list.d/debian-backports.list >/dev/null
+	sudo chroot $(@D) mkdir -p /etc/initramfs-tools
 	cat modules | sudo chroot $(@D) tee -a /etc/initramfs-tools/modules >/dev/null
+	sudo chroot $(@D) apt-get update
+	sudo chroot $(@D) apt-get -y --option=Dpkg::options::=--force-unsafe-io install --no-install-recommends \
+		linux-image-arm64/$(RELEASE)-backports
+	sudo chroot $(@D) apt-get clean
+	sudo find $(@D)/var/lib/apt/lists -type f -delete
 	export VERSION=$$(sudo chroot $(@D) dpkg-query -W -f '$${Depends}' linux-image-arm64 | sed -e 's/linux-image-\([^ ]\+\).*/\1/') \
 		&& sudo chroot $(@D) ln -s vmlinuz-$$VERSION /boot/vmlinuz \
 		&& sudo chroot $(@D) ln -s initrd.img-$$VERSION /boot/initrd.img \
