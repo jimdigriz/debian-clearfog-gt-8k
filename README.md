@@ -464,7 +464,7 @@ When upgrading the kernel, make sure you symlink in the `/boot/{vmlinuz,initrd.i
     apt-get install linux-image-arm64
     ln -f -s vmlinuz-5.14.0-0.bpo.2-arm64 /boot/vmlinuz
     ln -f -s initrd.img-5.14.0-0.bpo.2-arm64 /boot/initrd.img
-    cp /boot/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell/armada-8040-clearfog-gt-8k.dtb.orig
-    cp /usr/lib/linux-image-5.14.0-0.bpo.2-arm64/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
+    cp -a /boot/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell/armada-8040-clearfog-gt-8k.dtb.orig
+    cp -a /usr/lib/linux-image-5.14.0-0.bpo.2-arm64/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
 
 Once done you should be able to reboot.
