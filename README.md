@@ -287,15 +287,14 @@ My topology is:
     vlan10 [untagged] --\
     vlanX  [tagged] ----|
     vlanY  [tagged] ----|
-    vlanZ  [tagged] ----|
-    vlan.  [tagged] ----|
-                        |
-    lan1 [eth2] --\     |
-    lan2 [eth2] --+--- lan --- switch trunk port native VLAN 10
-    lan3 [eth2] --|
-    lan4 [eth2] --/
-    
-    wan [pppoe] -- eth1 ------ switch access port VLAN 101
+    vlanZ  [tagged] ----|                                    SWITCH
+    vlan.  [tagged] ----|    /-- lan1 [eth2] --\   |===========================|
+                        |    |-- lan2 [eth2] --|   |    switch trunk port      |
+                       lan --+-- lan3 [eth2] --+-- | native VLAN 10 using LACP |
+                             \-- lan4 [eth2] --/   |---------------------------|
+                                                   |    switch access port     |
+    wan [pppoe] -- eth1 -------------------------- |        VLAN 101           |
+                                                   |===========================|
     
     eth0  [sfp] -- UNUSED
 
