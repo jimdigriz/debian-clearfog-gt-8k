@@ -428,7 +428,7 @@ After creating the following files (and editing to suit you local site) you shou
 
 Set the permissions of the file with:
 
-    chmod 640 /etc/ppp/peers/eth1
+    chmod 640 /etc/ppp/peers/wan
 
 ##### `/etc/systemd/system/pppd-eth1@wan.service`
 
