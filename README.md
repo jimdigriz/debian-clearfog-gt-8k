@@ -356,11 +356,25 @@ After creating the following files (and editing to suit you local site) you shou
     [Match]
     Name=eth1
     
+    [Network]
+    LinkLocalAddressing=no
+    
     [Link]
     RequiredForOnline=no
     # Baby Jumbo Frames to provide end to end a full 1500 MTU over PPPoE
     # https://blog.kingj.net/2017/02/12/how-to/baby-jumbo-frames-rfc-4638-with-igb-based-nics-on-pfsense/
     MTUBytes=1508
+
+##### `/etc/systemd/network/eth2.network`
+
+    [Match]
+    Name=eth2
+    
+    [Network]
+    LinkLocalAddressing=no
+    
+    [Link]
+    RequiredForOnline=no
 
 ##### `/etc/systemd/network/eth2-lan.network`
 
@@ -423,6 +437,8 @@ After creating the following files (and editing to suit you local site) you shou
     password somepassword
     noauth
     +ipv6
+    lcp-echo-adaptive
+    lcp-echo-interval 3
     defaultroute
     usepeerdns
 
@@ -473,7 +489,7 @@ Enable the service with:
 
 ##### `/etc/systemd/resolved.conf`
 
-Set `FallbackDNS` to a set of providers as detailed in the configuration file.
+Set `FallbackDNS` to a set of providers as detailed in the configuration.
 
 ## Kernel Upgrade
 
