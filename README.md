@@ -432,7 +432,6 @@ Set the permissions of the file with:
 
 ##### `/etc/systemd/system/pppd-eth1@wan.service`
 
-    # https://scarff.id.au/blog/2021/internode-ipv6-on-linux-with-systemd-networkd/
     # https://github.com/systemd/systemd/issues/481#issuecomment-544337575
     [Unit]
     Description=PPP connection for %I
@@ -452,7 +451,7 @@ Set the permissions of the file with:
     PrivateTmp=yes
     ProtectHome=yes
     ProtectSystem=strict
-    # allow /etc/ppp/resolv.conf to be written if you need it
+    # allow /etc/ppp/resolv.conf to be written when using 'usepeerdns'
     ReadWritePaths=/run/ /etc/ppp/
     # https://github.com/systemd/systemd/issues/481#issuecomment-610951209
     #ProtectKernelTunables=yes
