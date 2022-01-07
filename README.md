@@ -351,13 +351,21 @@ After creating the following files (and editing to suit you local site) you shou
     Address=192.168.1.1/24
     
     [Address]
-    Address=fd00:dead:beef:1::/64
+    Address=fd69:dead:beef:1::0/64
+    
+    [DHCPServer]
+    PoolSize=64
+    Timezone=Europe/London
+    DNS=192.168.1.1
     
     [DHCPv6PrefixDelegation]
     SubnetId=0x1
     
+    [IPv6SendRA]
+    DNS=fd69:dead:beef:1::0
+
     [IPv6Prefix]
-    Prefix=fd00:dead:beef:1::/64
+    Prefix=fd69:dead:beef:1::/64
     
     [Link]
     RequiredForOnline=no
@@ -500,7 +508,11 @@ Enable the service with:
 
 ##### `/etc/systemd/resolved.conf`
 
-Set `FallbackDNS` to a set of providers as detailed in the configuration.
+Set `FallbackDNS` to a set of providers that you prefer as detailed in the configuration and set up the LAN stub listeners.
+
+    FallbackDNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
+    DNSStubListenerExtra=192.168.1.1
+    DNSStubListenerExtra=fd69:dead:beef:1::0
 
 ## Kernel Upgrade
 
