@@ -318,6 +318,7 @@ After creating the following files (and editing to suit you local site) you shou
 
     systemctl restart systemd-resolved
     systemctl restart systemd-networkd
+    systemctl restart pppd-eth1@wan
 
 ##### `/etc/systemd/network/lan.netdev`
 
@@ -340,24 +341,26 @@ After creating the following files (and editing to suit you local site) you shou
     VLAN=vlan20
     LinkLocalAddressing=ipv6
     IPv6AcceptRA=no
+    IPv6SendRA=yes
     IPv6PrefixDelegation=yes
-    Address=192.168.1.2/24
-    Gateway=192.168.1.1
-    DNS=1.1.1.1
+    Address=192.168.1.1/24
+    IPForward=yes
+    IPMasquerade=yes
+    DHCPServer=yes
     
-    [IPv6PrefixDelegation]
-    RouterLifetimeSec=3600
-
     [Link]
     RequiredForOnline=no
 
-###### `/etc/modules`
+##### `/etc/systemd/network/eth1.network`
 
-Run the following:
-
-    printf 'bonding\n8021q\n' >> /etc/modules
-
-This is used to resolve a race do DSA interfaces.
+    [Match]
+    Name=eth1
+    
+    [Link]
+    RequiredForOnline=no
+    # Baby Jumbo Frames to provide end to end a full 1500 MTU over PPPoE
+    # https://blog.kingj.net/2017/02/12/how-to/baby-jumbo-frames-rfc-4638-with-igb-based-nics-on-pfsense/
+    MTUBytes=1508
 
 ##### `/etc/systemd/network/eth2-lan.network`
 
@@ -389,6 +392,10 @@ This is used to resolve a race do DSA interfaces.
     BindCarrier=lan
     Address=192.0.2.1/24
     
+    [DHCPv6]
+    ForceDHCPv6PDOtherInformation=yes
+    WithoutRA=information-request
+    
     [Link]
     RequiredForOnline=no
 
@@ -400,9 +407,10 @@ This is used to resolve a race do DSA interfaces.
     
     [Network]
     BindCarrier=eth1
+    
     DHCP=ipv6
     
-    [DHCP]
+    [DHCPv6]
     ForceDHCPv6PDOtherInformation=yes
     
     [Link]
@@ -410,9 +418,13 @@ This is used to resolve a race do DSA interfaces.
 
 ##### `/etc/ppp/peers/wan`
 
-    username someusername
+    debug
+    user someusername
     password somepassword
+    noauth
     +ipv6
+    defaultroute
+    usepeerdns
 
 Set the permissions of the file with:
 
@@ -440,7 +452,8 @@ Set the permissions of the file with:
     PrivateTmp=yes
     ProtectHome=yes
     ProtectSystem=strict
-    ReadWritePaths=/run/
+    # allow /etc/ppp/resolv.conf to be written if you need it
+    ReadWritePaths=/run/ /etc/ppp/
     # https://github.com/systemd/systemd/issues/481#issuecomment-610951209
     #ProtectKernelTunables=yes
     ProtectControlGroups=yes
@@ -452,10 +465,16 @@ Set the permissions of the file with:
     
     [Install]
     WantedBy=sys-devices-virtual-net-%i.device
+    # needed to start on boot
+    WantedBy=multi-user.target
 
 Enable the service with:
 
     systemctl enable pppd-eth1@wan.service
+
+##### `/etc/systemd/resolved.conf`
+
+Set `FallbackDNS` to a set of providers as detailed in the configuration file.
 
 ## Kernel Upgrade
 
