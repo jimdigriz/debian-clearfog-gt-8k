@@ -343,10 +343,21 @@ After creating the following files (and editing to suit you local site) you shou
     IPv6AcceptRA=no
     IPv6SendRA=yes
     IPv6PrefixDelegation=yes
-    Address=192.168.1.1/24
     IPForward=yes
     IPMasquerade=yes
     DHCPServer=yes
+    
+    [Address]
+    Address=192.168.1.1/24
+    
+    [Address]
+    Address=fd00:dead:beef:1::/64
+    
+    [DHCPv6PrefixDelegation]
+    SubnetId=0x1
+    
+    [IPv6Prefix]
+    Prefix=fd00:dead:beef:1::/64
     
     [Link]
     RequiredForOnline=no
