@@ -388,6 +388,8 @@ After creating the following files (and editing to suit you local site) you shou
     # https://blog.kingj.net/2017/02/12/how-to/baby-jumbo-frames-rfc-4638-with-igb-based-nics-on-pfsense/
     MTUBytes=1508
 
+If you do use Baby Jumbo Frame's, make sure to enable on any and all switches between you and the SFP/modem jumbo frames for the VLAN you use otherwise you will create an MTU blackhole and your network transfers will stall.
+
 ##### `/etc/systemd/network/eth2.network`
 
     [Match]
