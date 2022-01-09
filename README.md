@@ -446,11 +446,12 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     
     [Network]
     BindCarrier=eth1
-    
     DHCP=ipv6
+    LLMNR=no
     
     [DHCPv6]
     ForceDHCPv6PDOtherInformation=yes
+    WithoutRA=information-request
     
     [Link]
     RequiredForOnline=yes
