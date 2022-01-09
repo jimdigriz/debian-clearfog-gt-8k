@@ -431,10 +431,6 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     BindCarrier=lan
     Address=192.0.2.1/24
     
-    [DHCPv6]
-    ForceDHCPv6PDOtherInformation=yes
-    WithoutRA=information-request
-    
     [Link]
     RequiredForOnline=no
 
