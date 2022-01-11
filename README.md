@@ -482,8 +482,8 @@ Set the permissions of the file with:
     [Service]
     Type=forking
     # avoid race waiting for systemd-networkd to configure interface
+    # systemd guarentees MTU is set before activating (carrier) link
     ExecStartPre=/lib/systemd/systemd-networkd-wait-online -i %j -o carrier
-    ExecStartPre=/bin/sh -c 'until networkctl status %j | awk "/State:/ { if (\\$3 == \\"(configured)\\" || \\$3 == \\"(routable)\\") { exit 0 } else { exit 1 } }"; do sleep 0.5; done'
     ExecStart=/usr/sbin/pppd plugin rp-pppoe.so %j call %i linkname %j ifname %i updetach
     ExecStop=/bin/kill $MAINPID
     ExecReload=/bin/kill -HUP $MAINPID
