@@ -477,9 +477,12 @@ Set the permissions of the file with:
     BindsTo=sys-subsystem-net-devices-%j.device
     After=sys-subsystem-net-devices-%j.device
     After=network.target
+    Before=default.target
     
     [Service]
     Type=forking
+    # avoid race waiting for systemd-networkd to configure interface
+    ExecStartPre=/lib/systemd/systemd-networkd-wait-online -i %j -o carrier
     ExecStart=/usr/sbin/pppd plugin rp-pppoe.so %j call %i linkname %j ifname %i updetach
     ExecStop=/bin/kill $MAINPID
     ExecReload=/bin/kill -HUP $MAINPID
@@ -503,7 +506,7 @@ Set the permissions of the file with:
     [Install]
     WantedBy=sys-devices-virtual-net-%i.device
     # needed to start on boot
-    WantedBy=multi-user.target
+    WantedBy=default.target
 
 Enable the service with:
 
