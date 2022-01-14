@@ -355,7 +355,7 @@ After creating the following files (and editing to suit you local site) you shou
     Address=192.168.1.1/24
     
     [Address]
-    Address=fd69:dead:beef:1::0/64
+    Address=fd69:dead:beef:1::1/64
     
     [DHCPServer]
     PoolSize=64
