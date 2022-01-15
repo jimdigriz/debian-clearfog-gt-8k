@@ -5,7 +5,7 @@ Build a [Debian 'bullseye' 11](https://www.debian.org/) image for the [SolidRun 
  * do something with the [`dmesg` output](dmesg)
  * u-boot (v2020.10) problems
      * `mmc write` explodes with `"Synchronous Abort" handler`
-     * `usb start` with a USB3 key (todo, test USB2 works) explodes with `BUG at drivers/usb/host/xhci-ring.c abort_td()`
+     * `usb start` with a USB3 key (TODO, test USB2 works) explodes with `BUG at drivers/usb/host/xhci-ring.c abort_td()`
 
 ## Related Links
 
@@ -47,7 +47,7 @@ Connection settings are 115200n8.
 
 When using an IDC cable ([six way female IDC with jumper pins at the other end, POPESQ #A2559](https://www.amazon.co.uk/gp/product/B07PNLC3ZG)), orientate the red wire (wire 1) next to the marked arrow on the board next to the pins which points to the GND pin.
 
-When plugging it into your [(FTDI) USB to TTL cable jumper serial adapter](https://ftdi-uk.shop/collections/usb-cables-ttl), connect wire 1 (red) to GND, wire 3 to TDX and wire 5 to RXD.
+When plugging it into your [(FTDI) USB to TTL cable jumper serial adaptor](https://ftdi-uk.shop/collections/usb-cables-ttl), connect wire 1 (red) to GND, wire 3 to TDX and wire 5 to RXD.
 
 ### Enclosure
 
@@ -177,9 +177,9 @@ A slightly different approach is used compared to what is [outlined by SolidRun 
  * using a USB stick for a 1.5MB image seems excessive
      * USB does not work under u-boot for me anyway
  * this approach covers what you need to do even when your unit is bricked
- * no need to use [`download-serial.sh`](https://github.com/SolidRun/u-boot-armada38x/blob/u-boot-2013.01-15t1-clearfog/download-serial.sh) when avaliable is [`mrvl_uart.sh`](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/tools/mrvl_uart.sh) supplied with u-boot which I found easier to get working
+ * no need to use [`download-serial.sh`](https://github.com/SolidRun/u-boot-armada38x/blob/u-boot-2013.01-15t1-clearfog/download-serial.sh) when available is [`mrvl_uart.sh`](https://gitlab.denx.de/u-boot/u-boot/-/blob/master/tools/mrvl_uart.sh) supplied with u-boot which I found easier to get working
 
-Start by building the firmware, downloading ~200MB plus roughly 5 mins:
+Start by building the firmware, downloading ~200MB plus roughly 5 minutes:
 
     make flash-image.bin
 
@@ -305,7 +305,7 @@ My topology is:
 Notes:
 
  * **`lan`:** carries tagged VLANs except for VLAN 10 (local LAN) which is untagged ('native')
- * **`wan`:** my [VDSL connection uses PPPoE](https://scarff.id.au/blog/2021/internode-ipv6-on-linux-with-systemd-networkd/)
+ * **`wan`:** my [VDSL2 connection uses PPPoE](https://scarff.id.au/blog/2021/internode-ipv6-on-linux-with-systemd-networkd/)
      * `eth1` is connected to an access port set to VLAN 101 that is passed to my VDSL2 SFP Modem plugged into my switch as a tagged VLAN
  * **`vlan10`:** not actually created, as the IP address is set directly on `bond0`
  * **`vlan...`:** any number of tagged VLAN interfaces
