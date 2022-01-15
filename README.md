@@ -449,9 +449,6 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     [IPv6AcceptRA]
     DHCPv6Client=always
     
-    [DHCPv6]
-    ForceDHCPv6PDOtherInformation=yes
-    
     [Link]
     RequiredForOnline=yes
 
