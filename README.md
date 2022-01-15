@@ -523,7 +523,7 @@ Set `FallbackDNS` to a set of providers that you prefer as detailed in the confi
 
     FallbackDNS=1.1.1.1 1.0.0.1 2606:4700:4700::1111 2606:4700:4700::1001
     DNSStubListenerExtra=192.168.1.1
-    DNSStubListenerExtra=fd69:dead:beef:1::0
+    DNSStubListenerExtra=fd69:dead:beef:1::1
 
 ## Kernel Upgrade
 
