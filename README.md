@@ -442,14 +442,15 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     
     [Network]
     BindCarrier=eth1
-    DHCP=ipv6
     LLMNR=no
     # https://gitlab.com/jimdigriz/debian-clearfog-gt-8k/-/issues/1
     #DNS=192.0.2.1 192.0.2.100
     
+    [IPv6AcceptRA]
+    DHCPv6Client=always
+    
     [DHCPv6]
     ForceDHCPv6PDOtherInformation=yes
-    WithoutRA=information-request
     
     [Link]
     RequiredForOnline=yes
