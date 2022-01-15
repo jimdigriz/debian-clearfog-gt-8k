@@ -260,9 +260,9 @@ Now you can configure the `lanX` ports as usual:
 
 Annoyingly my [Proscend 180-T VDSL2 SFP Modem](https://www.proscend.com/en/product/VDSL2-SFP-Modem-for-Telco/180-T.html) is ~3mm too high to fit in the SFP slot...so I am forced to plug it into my switch instead.
 
-Of note, a [Cisco Catalyst 3750-X](https://www.cisco.com/c/en/us/support/switches/catalyst-3750-x-series-switches/series.html) accepts the SFP with no complaints (looking like it does not even need `service unsupported-transceiver`) but has a [hardware fault](https://www.cisco.com/c/en/us/support/docs/field-notices/637/fn63745.html) resulting in the [unit failing to power up](https://www.cisco.com/c/en/us/support/docs/field-notices/637/fn63745.html).
+Of note, a [Cisco Catalyst 3750-X](https://www.cisco.com/c/en/us/support/switches/catalyst-3750-x-series-switches/series.html) accepts the SFP with no complaints (looking like it does not even need `service unsupported-transceiver`) but mine has a [hardware fault like many of these units](https://www.cisco.com/c/en/us/support/docs/field-notices/637/fn63745.html) causing it to [fail to power up](https://www.cisco.com/c/en/us/support/docs/field-notices/637/fn63745.html).
 
-Instead I am using an [HP J9310A Switch 3500yl-24G-PoE+](https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01813146) which refuses to power the SFP as it is an unsupported transceiver (and `allow-unsupported-transceiver` is not supported) and I am forced to include a [media converter](https://www.10gtek.com/geconverter).
+Instead I am using an [HP J9310A Switch 3500yl-24G-PoE+ (somewhat louder!)](https://support.hpe.com/hpesc/public/docDisplay?docId=emr_na-c01813146) which refuses to power the SFP as it is an unsupported transceiver (and `allow-unsupported-transceiver` is not supported) and I am forced to include a [media converter](https://www.10gtek.com/geconverter).
 
 #### PPPoE
 
