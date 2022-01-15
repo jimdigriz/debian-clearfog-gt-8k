@@ -444,6 +444,8 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     BindCarrier=eth1
     DHCP=ipv6
     LLMNR=no
+    # https://gitlab.com/jimdigriz/debian-clearfog-gt-8k/-/issues/1
+    #DNS=192.0.2.1 192.0.2.100
     
     [DHCPv6]
     ForceDHCPv6PDOtherInformation=yes
@@ -451,6 +453,8 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     
     [Link]
     RequiredForOnline=yes
+
+Make sure you uncomment and update the `DNS=...` entry above with your ISP's (or some other [*IPv4 only*](https://gitlab.com/jimdigriz/debian-clearfog-gt-8k/-/issues/1)) DNS servers
 
 ##### `/etc/ppp/peers/wan`
 
@@ -482,7 +486,9 @@ Set the permissions of the file with:
     [Service]
     Type=forking
     # avoid race waiting for systemd-networkd to configure interface
+    # https://github.com/systemd/systemd/issues/481#issuecomment-1010092917
     # systemd guarentees MTU is set before activating (carrier) link
+    # https://github.com/systemd/systemd/issues/481#issuecomment-1010159176
     ExecStartPre=/lib/systemd/systemd-networkd-wait-online -i %j -o carrier
     ExecStart=/usr/sbin/pppd plugin rp-pppoe.so %j call %i linkname %j ifname %i updetach
     ExecStop=/bin/kill $MAINPID
