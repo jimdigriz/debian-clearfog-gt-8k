@@ -330,6 +330,7 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
 
     [Match]
     Name=lo
+    Unmanaged=yes
     
     # rfc6890
     [Route]
@@ -451,15 +452,15 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     [RoutingPolicyRule]
     From=fc00::/7
     Table=69
-    [RoutingPolicyRule]
-    From=10.0.0.0/8
-    Table=69
-    [RoutingPolicyRule]
-    From=172.16.0.0/12
-    Table=69
-    [RoutingPolicyRule]
-    From=192.168.0.0/16
-    Table=69
+    #[RoutingPolicyRule]
+    #From=10.0.0.0/8
+    #Table=69
+    #[RoutingPolicyRule]
+    #From=172.16.0.0/12
+    #Table=69
+    #[RoutingPolicyRule]
+    #From=192.168.0.0/16
+    #Table=69
 
 ##### `/etc/systemd/network/lan.netdev`
 
