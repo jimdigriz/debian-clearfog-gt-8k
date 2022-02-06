@@ -324,6 +324,143 @@ After creating the following files (and editing to suit you local site) you shou
     systemctl restart systemd-networkd
     systemctl restart pppd-eth1@wan
 
+##### `/etc/systemd/network/lo.network`
+
+This adds guards to prevent leaking traffic to the Internet with an invalid source or destination address.
+
+    [Match]
+    Name=lo
+    
+    # rfc6890
+    [Route]
+    Destination=0.0.0.0/8
+    Type=unreachable
+    [Route]
+    Destination=10.0.0.0/8
+    Type=unreachable
+    [Route]
+    Destination=100.64.0.0/10
+    Type=unreachable
+    [Route]
+    Destination=127.0.0.0/8
+    Type=unreachable
+    [Route]
+    Destination=169.254.0.0/16
+    Type=unreachable
+    [Route]
+    Destination=172.16.0.0/12
+    Type=unreachable
+    [Route]
+    Destination=192.0.0.0/24
+    Type=unreachable
+    [Route]
+    Destination=192.0.0.0/29
+    Type=unreachable
+    [Route]
+    Destination=192.0.2.0/24
+    Type=unreachable
+    [Route]
+    Destination=192.88.99.0/24
+    Type=unreachable
+    [Route]
+    Destination=192.168.0.0/16
+    Type=unreachable
+    [Route]
+    Destination=198.18.0.0/15
+    Type=unreachable
+    [Route]
+    Destination=198.51.100.0/24
+    Type=unreachable
+    [Route]
+    Destination=203.0.113.0/24
+    Type=unreachable
+    [Route]
+    Destination=240.0.0.0/4
+    Type=unreachable
+    [Route]
+    Destination=255.255.255.255/32
+    Type=unreachable
+    [Route]
+    Destination=::1/128
+    Type=unreachable
+    [Route]
+    Destination=::/128
+    Type=unreachable
+    [Route]
+    Destination=64:ff9b::/96
+    Type=unreachable
+    [Route]
+    Destination=64:ff9b::/96
+    Type=unreachable
+    [Route]
+    Destination=::ffff:0:0/96
+    Type=unreachable
+    [Route]
+    Destination=100::/64
+    Type=unreachable
+    [Route]
+    Destination=2001::/23
+    Type=unreachable
+    [Route]
+    Destination=2001::/32
+    Type=unreachable
+    [Route]
+    Destination=2001:2::/48
+    Type=unreachable
+    [Route]
+    Destination=2001:db8::/32
+    Type=unreachable
+    [Route]
+    Destination=2001:10::/28
+    Type=unreachable
+    [Route]
+    Destination=2002::/16
+    Type=unreachable
+    [Route]
+    Destination=fc00::/7
+    Type=unreachable
+    [Route]
+    Destination=fe80::/10
+    Type=unreachable
+    
+    [Route]
+    Table=69
+    Destination=fc00::/7
+    Type=throw
+    [Route]
+    Table=69
+    Destination=::/0
+    Type=prohibit
+    [Route]
+    Table=69
+    Destination=10.0.0.0/10
+    Type=throw
+    [Route]
+    Table=69
+    Destination=172.16.0.0/12
+    Type=throw
+    [Route]
+    Table=69
+    Destination=192.168.0.0/16
+    Type=throw
+    [Route]
+    Table=69
+    Destination=0.0.0.0/0
+    Type=prohibit
+    
+    [RoutingPolicyRule]
+    From=fc00::/7
+    Table=69
+    [RoutingPolicyRule]
+    From=10.0.0.0/8
+    Table=69
+    [RoutingPolicyRule]
+    From=172.16.0.0/12
+    Table=69
+    [RoutingPolicyRule]
+    From=192.168.0.0/16
+    Table=69
+
 ##### `/etc/systemd/network/lan.netdev`
 
     [NetDev]
