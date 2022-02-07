@@ -316,6 +316,7 @@ Enable `systemd-networkd` (and `systemd-resolved`) with:
     systemctl enable systemd-resolved
     systemctl enable systemd-networkd
     systemctl enable nftables
+    sysctl -f /etc/sysctl.d/10-network.conf
 
 #### Configuration Files
 
@@ -325,6 +326,17 @@ After creating the following files (and editing to suit you local site) you shou
     systemctl restart systemd-networkd
     systemctl restart pppd-eth1@wan
     cat /etc/nftables.conf | nft -f
+
+##### `/etc/sysctl.d/10-network.conf`
+
+    # Uncomment the next two lines to enable Spoof protection (reverse-path filter)
+    # Turn on Source Address Verification in all interfaces to
+    # prevent some spoofing attacks
+    net.ipv4.conf.default.rp_filter=1
+    net.ipv4.conf.all.rp_filter=1
+    
+    # Log Martian Packets
+    net.ipv4.conf.all.log_martians = 1
 
 ##### `/etc/nftables.conf`
 
