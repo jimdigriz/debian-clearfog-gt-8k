@@ -315,6 +315,7 @@ Enable `systemd-networkd` (and `systemd-resolved`) with:
     ln -f -s /run/systemd/resolve/resolv.conf /etc/resolv.conf
     systemctl enable systemd-resolved
     systemctl enable systemd-networkd
+    systemctl enable nftables
 
 #### Configuration Files
 
@@ -323,6 +324,21 @@ After creating the following files (and editing to suit you local site) you shou
     systemctl restart systemd-resolved
     systemctl restart systemd-networkd
     systemctl restart pppd-eth1@wan
+    cat /etc/nftables.conf | nft -f
+
+##### `/etc/nftables.conf`
+
+    #!/usr/sbin/nft -f
+    
+    flush ruleset
+    
+    # nft list ruleset
+    table ip nat {
+            chain POSTROUTING {
+                    type nat hook postrouting priority srcnat; policy accept;
+                    oifname "wan" counter packets 0 bytes 0 masquerade
+            }
+    }
 
 ##### `/etc/systemd/network/lo.network`
 
@@ -450,6 +466,7 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     Type=prohibit
     
     [RoutingPolicyRule]
+    Priority=10000
     From=fc00::/7
     Table=69
     #[RoutingPolicyRule]
@@ -486,7 +503,8 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     IPv6SendRA=yes
     IPv6PrefixDelegation=yes
     IPForward=yes
-    IPMasquerade=yes
+    # we use nftables otherwise internal routing is also NATed
+    #IPMasquerade=yes
     DHCPServer=yes
     
     [Address]

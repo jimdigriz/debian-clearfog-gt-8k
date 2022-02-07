@@ -6,6 +6,7 @@ iproute2
 irqbalance
 mmc-utils
 netbase
+nftables
 pciutils
 rng-tools5
 systemd-sysv
