@@ -346,7 +346,6 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
 
     [Match]
     Name=lo
-    Unmanaged=yes
     
     # rfc6890
     [Route]
