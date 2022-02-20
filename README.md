@@ -697,9 +697,12 @@ Set `FallbackDNS` to a set of providers that you prefer as detailed in the confi
 When upgrading the kernel, make sure you symlink in the `/boot/{vmlinuz,initrd.img}` and update `/boot/marvell/armada-8040-clearfog-gt-8k.dtb.orig`:
 
     apt-get install linux-image-arm64
-    ln -f -s vmlinuz-5.14.0-0.bpo.2-arm64 /boot/vmlinuz
-    ln -f -s initrd.img-5.14.0-0.bpo.2-arm64 /boot/initrd.img
+    
+    ln -f -s vmlinuz-5.15.0-0.bpo.3-arm64 /boot/vmlinuz
+    ln -f -s initrd.img-5.15.0-0.bpo.3-arm64 /boot/initrd.img
+    
+    # retain old DTB so if the boot fails, you can still use the previous one on the /boot partition
     cp -a /boot/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell/armada-8040-clearfog-gt-8k.dtb.orig
-    cp -a /usr/lib/linux-image-5.14.0-0.bpo.2-arm64/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
+    cp -a /usr/lib/linux-image-5.15.0-0.bpo.3-arm64/marvell/armada-8040-clearfog-gt-8k.dtb /boot/marvell
 
 Once done you should be able to reboot.
