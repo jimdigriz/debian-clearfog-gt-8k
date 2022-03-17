@@ -535,7 +535,7 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     SubnetId=0x1
     
     [IPv6SendRA]
-    DNS=fd69:dead:beef:1::0
+    DNS=fd69:dead:beef:1::1
 
     [IPv6Prefix]
     Prefix=fd69:dead:beef:1::/64
