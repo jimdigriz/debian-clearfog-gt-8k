@@ -293,14 +293,14 @@ My topology is:
     vlan10 [untagged] --\
     vlanX  [tagged] ----|
     vlanY  [tagged] ----|
-    vlanZ  [tagged] ----|                                    SWITCH
-    vlan.  [tagged] ----|    /-- lan1 [eth2] --\   |===========================|
-                        |    |-- lan2 [eth2] --|   |    switch trunk port      |
-                       lan --+-- lan3 [eth2] --+-- | native VLAN 10 using LACP |
-                             \-- lan4 [eth2] --/   |---------------------------|
-                                                   |    switch access port     |
-    wan [pppoe] -- eth1 -------------------------- |        VLAN 101           |
-                                                   |===========================|
+    vlanZ  [tagged] ----|                                         SWITCH
+    vlan.  [tagged] ----|    /-- lan1 [eth2] --\   |=================================|
+                        |    |-- lan2 [eth2] --|   |         switch trunk port       |
+                       lan --+-- lan3 [eth2] --+-- |    native VLAN 10 using LACP    |
+                             \-- lan4 [eth2] --/   |---------------------------------|
+                                                   |         switch trunk port       |
+    wan [pppoe] -- vlan101 [tagged] -- eth1 ------ | native VLAN 100 (allow 100,101) |
+                                                   |=================================|
     
     eth0  [sfp] -- UNUSED
 
@@ -308,8 +308,9 @@ Notes:
 
  * **`lan`:** carries tagged VLANs except for VLAN 10 (local LAN) which is untagged ('native')
  * **`wan`:** my [VDSL2 connection uses PPPoE](https://scarff.id.au/blog/2021/internode-ipv6-on-linux-with-systemd-networkd/)
-     * `eth1` is connected to an access port set to VLAN 101 that is passed to my VDSL2 SFP Modem plugged into my switch as a tagged VLAN
- * **`vlan10`:** not actually created, as the IP address is set directly on `bond0`
+     * `eth1` is connected to an trunk port that with a native VLAN of 100 but also allowed tagged VLAN 101 frames
+     * VDSL2 SFP Modem plugged into my switch with the same port configuration (native: 100, allowed: 100, 101)
+ * **`vlan10`:** not actually created, as the IP address is set directly on `lan`
  * **`vlan...`:** any number of tagged VLAN interfaces
 
 Enable `systemd-networkd` (and `systemd-resolved`) with:
@@ -549,13 +550,14 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     Name=eth1
     
     [Network]
+    VLAN=vlan101
     LinkLocalAddressing=no
     
     [Link]
     RequiredForOnline=no
     # Baby Jumbo Frames to provide end to end a full 1500 MTU over PPPoE
     # https://blog.kingj.net/2017/02/12/how-to/baby-jumbo-frames-rfc-4638-with-igb-based-nics-on-pfsense/
-    MTUBytes=1508
+    MTUBytes=1512
 
 If you do use Baby Jumbo Frame's, make sure to enable on any and all switches between you and the SFP/modem jumbo frames for the VLAN you use otherwise you will create an MTU blackhole and your network transfers will stall.
 
@@ -581,24 +583,27 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     [Link]
     RequiredForOnline=no
 
-##### `/etc/systemd/network/vlan20.netdev`
+##### `/etc/systemd/network/vlan101.netdev`
 
     [NetDev]
-    Name=vlan20
+    Name=vlan101
     Kind=vlan
     MACAddress=00:11:22:33:44:55
+    # Baby Jumbo Frames to provide end to end a full 1500 MTU over PPPoE
+    # https://blog.kingj.net/2017/02/12/how-to/baby-jumbo-frames-rfc-4638-with-igb-based-nics-on-pfsense/
+    MTUBytes=1508
     
     [VLAN]
-    Id=20
+    Id=101
 
-##### `/etc/systemd/network/vlan20.network`
+##### `/etc/systemd/network/vlan101.network`
 
     [Match]
-    Name=vlan20
+    Name=vlan101
     
     [Network]
-    BindCarrier=lan
-    Address=192.0.2.1/24
+    BindCarrier=eth1
+    LinkLocalAddressing=no
     
     [Link]
     RequiredForOnline=no
@@ -610,7 +615,7 @@ If you do use Baby Jumbo Frame's, make sure to enable on any and all switches be
     Type=ppp
     
     [Network]
-    BindCarrier=eth1
+    BindCarrier=vlan101
     LLMNR=no
     # https://gitlab.com/jimdigriz/debian-clearfog-gt-8k/-/issues/1
     #DNS=192.0.2.1 192.0.2.100
@@ -639,7 +644,7 @@ Set the permissions of the file with:
 
     chmod 640 /etc/ppp/peers/wan
 
-##### `/etc/systemd/system/pppd-eth1@wan.service`
+##### `/etc/systemd/system/pppd-vlan101@wan.service`
 
     # https://github.com/systemd/systemd/issues/481#issuecomment-544337575
     [Unit]
@@ -684,7 +689,7 @@ Set the permissions of the file with:
 
 Enable the service with:
 
-    systemctl enable pppd-eth1@wan.service
+    systemctl enable pppd-vlan101@wan.service
 
 ##### `/etc/systemd/resolved.conf`
 
