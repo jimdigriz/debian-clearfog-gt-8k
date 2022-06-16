@@ -656,6 +656,8 @@ Set the permissions of the file with:
     Before=default.target
     
     [Service]
+    # https://github.com/ppp-project/ppp/commit/d34159f417620eb7c481bf53f29fe04c86ccd223
+    # otherwsise you can use 'forking' and replace 'up_sdnotify' with 'updetach'
     Type=notify
     # avoid race waiting for systemd-networkd to configure interface
     # https://github.com/systemd/systemd/issues/481#issuecomment-1010092917
