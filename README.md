@@ -656,13 +656,13 @@ Set the permissions of the file with:
     Before=default.target
     
     [Service]
-    Type=forking
+    Type=notify
     # avoid race waiting for systemd-networkd to configure interface
     # https://github.com/systemd/systemd/issues/481#issuecomment-1010092917
     # systemd guarentees MTU is set before activating (carrier) link
     # https://github.com/systemd/systemd/issues/481#issuecomment-1010159176
     ExecStartPre=/lib/systemd/systemd-networkd-wait-online -i %j -o carrier
-    ExecStart=/usr/sbin/pppd plugin rp-pppoe.so %j call %i linkname %j ifname %i updetach
+    ExecStart=/usr/sbin/pppd plugin rp-pppoe.so %j call %i linkname %j ifname %i up_sdnotify
     ExecStop=/bin/kill $MAINPID
     ExecReload=/bin/kill -HUP $MAINPID
     StandardOutput=null
