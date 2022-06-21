@@ -635,8 +635,10 @@ Make sure you uncomment and update the `DNS=...` entry above with your ISP's (or
     password somepassword
     noauth
     +ipv6
-    lcp-echo-adaptive
+    # https://github.com/ppp-project/ppp/issues/323
+    #lcp-echo-adaptive
     lcp-echo-interval 3
+    lcp-echo-failure 5
     defaultroute
     usepeerdns
 
