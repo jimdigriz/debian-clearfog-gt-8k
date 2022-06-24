@@ -299,7 +299,7 @@ My topology is:
                        lan --+-- lan3 [eth2] --+-- |    native VLAN 10 using LACP    |
                              \-- lan4 [eth2] --/   |---------------------------------|
                                                    |         switch trunk port       |
-    wan [pppoe] -- vlan101 [tagged] -- eth1 ------ | native VLAN 100 (allow 100,101) |
+    wan [pppoe] -- vlan101 [tagged] -- eth1 ------ | native VLAN 100 (allow 100,101) |  ----- [Proscend 180-T VDSL2 SFP Modem]
                                                    |=================================|
     
     eth0  [sfp] -- UNUSED
