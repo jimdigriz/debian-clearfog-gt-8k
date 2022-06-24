@@ -308,7 +308,7 @@ Notes:
 
  * **`lan`:** carries tagged VLANs except for VLAN 10 (local LAN) which is untagged ('native')
  * **`wan`:** my [VDSL2 connection uses PPPoE](https://scarff.id.au/blog/2021/internode-ipv6-on-linux-with-systemd-networkd/)
-     * `eth1` is connected to an trunk port that with a native VLAN of 100 but also allowed tagged VLAN 101 frames
+     * `eth1` is connected to an trunk port that with a native VLAN of 100 but also allows tagged VLAN 101 frames
      * VDSL2 SFP Modem plugged into my switch with the same port configuration (native: 100, allowed: 100, 101)
  * **`vlan10`:** not actually created, as the IP address is set directly on `lan`
  * **`vlan...`:** any number of tagged VLAN interfaces
