@@ -286,7 +286,7 @@ Running a xDSL PPPoE connection over the SFP should be otherwise straight forwar
 
 ### `systemd-networkd`
 
-Whether you like it or not, [systemd-networkd](https://wiki.archlinux.org/index.php/Systemd-networkd) is what is expected.
+Here is detailed how to configure [systemd-networkd](https://wiki.archlinux.org/index.php/Systemd-networkd) to manage your xDSL connection.
 
 My topology is:
 
