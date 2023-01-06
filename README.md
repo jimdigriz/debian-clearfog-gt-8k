@@ -705,7 +705,7 @@ Set `FallbackDNS` to a set of providers that you prefer as detailed in the confi
 
 ## Kernel Upgrade
 
-When upgrading the kernel, make sure you symlink in the `/boot/{vmlinuz,initrd.img}` and update `/boot/marvell/armada-8040-clearfog-gt-8k.dtb.orig`:
+When upgrading the kernel, make sure you symlink in the `/boot/{vmlinuz,initrd.img}` and update `/boot/marvell/armada-8040-clearfog-gt-8k.dtb`:
 
     apt-get install linux-image-arm64
     
