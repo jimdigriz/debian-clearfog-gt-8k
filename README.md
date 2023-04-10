@@ -421,9 +421,6 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     Destination=64:ff9b::/96
     Type=unreachable
     [Route]
-    Destination=64:ff9b::/96
-    Type=unreachable
-    [Route]
     Destination=::ffff:0:0/96
     Type=unreachable
     [Route]
