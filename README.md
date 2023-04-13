@@ -508,7 +508,7 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     
     [Network]
     BindCarrier=lan1 lan2 lan3 lan4
-    VLAN=vlan20
+    #VLAN=vlan20
     LinkLocalAddressing=ipv6
     IPv6AcceptRA=no
     IPv6SendRA=yes
@@ -517,6 +517,7 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     # we use nftables otherwise internal routing is also NATed
     #IPMasquerade=yes
     DHCPServer=yes
+    Domains=home
     
     [Address]
     Address=192.168.1.1/24
@@ -528,12 +529,15 @@ This adds guards to prevent leaking traffic to the Internet with an invalid sour
     PoolSize=64
     Timezone=Europe/London
     DNS=192.168.1.1
+    #SendOption=15:string:home
+    SendOption=119:string:\x04home\x00
     
     [DHCPv6PrefixDelegation]
     SubnetId=0x1
     
     [IPv6SendRA]
     DNS=fd69:dead:beef:1::1
+    EmitDomain=true
 
     [IPv6Prefix]
     Prefix=fd69:dead:beef:1::/64
