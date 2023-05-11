@@ -647,7 +647,7 @@ Set the permissions of the file with:
 
     chmod 640 /etc/ppp/peers/wan
 
-##### `/etc/systemd/system/pppd-vlan101@wan.service`
+##### `/lib/systemd/system/pppd@.service`
 
     # https://github.com/systemd/systemd/issues/481#issuecomment-544337575
     [Unit]
@@ -666,8 +666,8 @@ Set the permissions of the file with:
     # https://github.com/systemd/systemd/issues/481#issuecomment-1010092917
     # systemd guarentees MTU is set before activating (carrier) link
     # https://github.com/systemd/systemd/issues/481#issuecomment-1010159176
-    ExecStartPre=/lib/systemd/systemd-networkd-wait-online -i %j -o carrier
-    ExecStart=/usr/sbin/pppd plugin rp-pppoe.so %j call %i linkname %j ifname %i up_sdnotify
+    ExecStartPre=/lib/systemd/systemd-networkd-wait-online -i %J -o carrier
+    ExecStart=/usr/sbin/pppd plugin rp-pppoe.so %J call %I linkname %I ifname %I up_sdnotify
     ExecStop=/bin/kill $MAINPID
     ExecReload=/bin/kill -HUP $MAINPID
     StandardOutput=null
@@ -694,7 +694,10 @@ Set the permissions of the file with:
 
 Enable the service with:
 
+    ln -s /lib/systemd/system/pppd@.service /etc/systemd/system/pppd-vlan101@wan.service
     systemctl enable pppd-vlan101@wan.service
+
+**N.B.** if you have a `-` (hyphen) in your interface names, you must escape it with `\x2d`
 
 ##### `/etc/systemd/resolved.conf`
 
