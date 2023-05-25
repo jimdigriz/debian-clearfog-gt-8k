@@ -694,7 +694,7 @@ Set the permissions of the file with:
 
 Enable the service with:
 
-    ln -s /lib/systemd/system/pppd@.service /etc/systemd/system/pppd-vlan101@wan.service
+    cp /lib/systemd/system/pppd\@.service /etc/systemd/system/pppd-vlan101\@wan.service
     systemctl enable pppd-vlan101@wan.service
 
 **N.B.** if you have a `-` (hyphen) in your interface names, you must escape it with `\x2d`
